@@ -141,7 +141,7 @@ export default function EmployLogin() {
             </div>
             <div className="child_box">
               <button className="join_now" 
-              onClick={navigate('/employeesign')}
+              onClick={()=>{navigate('/employeesign')}}
               >New to ReviewMe? Join now</button>
             </div>
           </div>

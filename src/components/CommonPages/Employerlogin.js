@@ -3,14 +3,52 @@ import logpage from "../images/graphic-cartoon-character-we-are-hiring-vector-36
 import { IoEyeOffSharp, IoEyeSharp, IoLogoLinkedin } from "react-icons/io5";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
-// import cogoToast from "cogo-toast";
+import { useDispatch } from "react-redux";
+import { EXCHANGE_URLS_EMPLOYER } from "../URLS";
+import { useForm } from "react-hook-form";
+import axios from "axios";
+import cogoToast from "cogo-toast";
+import { userCheckAction, userDataAction } from "../../redux/users/action";
 
 export default function Employerlogin() {
-const navigate = useNavigate();
+  const [employer,setEmployer] = useState({
+    email: "",
+    password: "",
+  });
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [passwordType, setPasswordType] = useState("password");
-  const [passwordInput, setPasswordInput] = useState("");
-  const handlePasswordChange = (evnt) => {
-    setPasswordInput(evnt.target.value);
+
+  const employerApi = async () => {
+    try {
+      const res = await axios.post(`${EXCHANGE_URLS_EMPLOYER}/login`,employer);
+      console.log("resres", res?.data?.data);
+      if (res?.status === 201) {
+        localStorage.setItem("token", res?.data?.data?.token);
+        dispatch(userDataAction(res?.data?.data?.user));
+        dispatch(userCheckAction(true));
+        navigate('/allpages')
+        cogoToast.success("Login Successfully");
+      } 
+    } catch (err) {
+      console.log("err", err);
+      cogoToast.error("An error occurred during login");
+    }
+  };
+
+  // const [passwordInput, setPasswordInput] = useState("");
+  // const handlePasswordChange = (evnt) => {
+  //   setPasswordInput(evnt.target.value);
+  // };
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+
+  const onSubmit = (data) => {
+    console.log("data",data);
   };
   const togglePassword = () => {
     if (passwordType === "password") {
@@ -25,78 +63,130 @@ const navigate = useNavigate();
     }
   };
   const handleClick = () => {
-    
-    // if (logindata.username.length > 3 ) {
-    //   loginApi();
-    // } else {
-    //   cogoToast.error(
-    //     "Username Length should be greater than 3 character"
-    //   );
-    // }
+    employerApi()
   };
+
+
   return (
     <Root>
       <div className="main1">
-        <h1>Welcome To Your Professional Community</h1>
-        <div className="child">
-          <div className="child_box">
-            <p>Email or Phone</p>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <h1>Welcome To Your Professional Community</h1>
+          <div className="child">
+            <div className="child_box">
+              <p>
+                {" "}
+                <label>Email or Phone</label>
+              </p>
 
-            <input  onKeyDown={handleKeyDown}></input>
-          </div>
-          <div className="child_box">
-            <p>Password</p>
-            <div className="password_div">
               <input
-                type={passwordType}
-                onChange={handlePasswordChange}
-                value={passwordInput}
-                name="password"
                 onKeyDown={handleKeyDown}
-                class="form-control"
-              />{" "}
-              <button className="btn_outline_primary" onClick={togglePassword}>
-                {passwordType === "password" ? (
-                  <i className="eye_slash">
-                    <IoEyeOffSharp />
-                  </i>
-                ) : (
-                  <i className="eye">
-                    <IoEyeSharp />
-                  </i>
+                type="email"
+                value={employer.email}
+                onChange={(e) => {
+                  setEmployer({ ...employer, email: e.target.value });
+                }}
+                name="email"
+                {...register("email", {
+                  required: "Email is required.",
+                  pattern: {
+                    value: /^[^@ ]+@[^@ ]+\.[^@ .]{2,}$/,
+                    message: "Email is not valid.",
+                  },
+                })}
+              />
+              {errors.email && (
+                <p className="errorMsg">{errors.email.message}</p>
+              )}
+            </div>
+            <div className="child_box">
+              <p>
+                <label >Password</label>
+              </p>
+              <div className="password_div">
+                <div>
+                  <input
+                    onKeyDown={handleKeyDown}
+                    type={passwordType}
+                    value={employer.password}
+                    onChange={(e) => {
+                      setEmployer({ ...employer, password: e.target.value });
+                    }}
+                    name="password"
+                    {...register("password", {
+                      required: true,
+                      validate: {
+                        checkLength: (value) => value.length >= 5,
+                        matchPattern: (value) =>
+                          /(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s)(?=.*[!@#$*])/.test(
+                            value
+                          ),
+                      },
+                    })}
+                  />
+                  <button
+                    className="btn_outline_primary"
+                    onClick={togglePassword}
+                  >
+                    {passwordType === "password" ? (
+                      <i className="eye_slash">
+                        <IoEyeOffSharp />
+                      </i>
+                    ) : (
+                      <i className="eye">
+                        <IoEyeSharp />
+                      </i>
+                    )}
+                  </button>
+                </div>
+                {errors.password?.type === "required" && (
+                  <p className="errorMsg">Password is required.</p>
                 )}
+                {errors.password?.type === "checkLength" && (
+                  <p className="errorMsg">
+                    Password should be at-least 5 characters.
+                  </p>
+                )}
+                {errors.password?.type === "matchPattern" && (
+                  <p className="errorMsg">
+                    Password should contain at least one uppercase letter,
+                    lowercase letter, digit, and special symbol.
+                  </p>
+                )}{" "}
+              </div>
+            </div>
+            <div className="child_box">
+              <button className="forget">Forget password?</button>
+            </div>
+            <div className="child_box">
+              <button className="sign" type="submit"
+              onClick={handleClick}
+              >Sign in</button>
+            </div>
+            <div className="orr">
+              {" "}
+              <div className="line-1"></div>
+              <p> or </p>
+              <div className="line-1"></div>
+            </div>
+            <div className="policy_box">
+              By clicking Continue, you agree to ReviewMe’s
+              <h6> User Agreement, Privacy Policy</h6>, and
+              <h6>Cookie Policy</h6>.
+            </div>
+            <div className="child_box">
+              <button className="linked">
+                <IoLogoLinkedin />
+                <p>Continue with LinkedIn</p>
+              </button>
+            </div>
+            <div className="child_box">
+              <button className="join_now" onClick={()=>{navigate("/employersign")}}>
+                New to ReviewMe? Join now
               </button>
             </div>
           </div>
-          <div className="child_box">
-            <button className="forget">Forget password?</button>
-          </div>
-          <div className="child_box">
-            <button className="sign">Sign in</button>
-          </div>
-          <div className="orr">
-            {" "}
-            <div className="line-1"></div>
-            <p> or </p>
-            <div className="line-1"></div>
-          </div>
-          <div className="policy_box">
-            By clicking Continue, you agree to ReviewMe’s
-            <h6> User Agreement, Privacy Policy</h6>, and
-            <h6>Cookie Policy</h6>.
-          </div>
-          <div className="child_box">
-            <button className="linked">
-              <IoLogoLinkedin />
-              <p>Continue with LinkedIn</p>
-            </button>
-          </div>
-          <div className="child_box">
-            <button className="join_now"
-            onClick={navigate('/employersign')}
-            >New to ReviewMe? Join now</button>
-          </div>
-        </div>
+        </form>
       </div>
       <div className="main2">
         <img src={logpage} alt="img" />
@@ -251,6 +341,7 @@ const Root = styled.section`
         }
         .password_div {
           display: flex;
+          flex-direction: column;
           @media (max-width: 766px) {
             width: 107%;
           }
