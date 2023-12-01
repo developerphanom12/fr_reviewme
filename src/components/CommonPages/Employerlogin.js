@@ -9,27 +9,41 @@ import { useForm } from "react-hook-form";
 import axios from "axios";
 import cogoToast from "cogo-toast";
 import { userCheckAction, userDataAction } from "../../redux/users/action";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
+
+const schema = yup.object().shape({
+  email: yup
+    .string()
+    .required("Email is required.")
+    .email("Email is not valid."),
+  password: yup
+    .string()
+    .required("Password is required.")
+    .min(5, "Password should be at least 5 characters.")
+    .matches(
+      /(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s)(?=.*[!@#$*])/,
+      "Password should contain at least one uppercase letter, lowercase letter, digit, and special symbol."
+    ),
+});
 
 export default function Employerlogin() {
-  const [employer,setEmployer] = useState({
-    email: "",
-    password: "",
-  });
+ 
+  const [passwordType, setPasswordType] = useState("password");
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [passwordType, setPasswordType] = useState("password");
 
-  const employerApi = async () => {
+  const  onSubmit = async (data) => {
     try {
-      const res = await axios.post(`${EXCHANGE_URLS_EMPLOYER}/login`,employer);
+      const res = await axios.post(`${EXCHANGE_URLS_EMPLOYER}/login`, data);
       console.log("resres", res?.data?.data);
       if (res?.status === 201) {
         localStorage.setItem("token", res?.data?.data?.token);
         dispatch(userDataAction(res?.data?.data?.user));
         dispatch(userCheckAction(true));
-        navigate('/allpages')
+        navigate("/allpages");
         cogoToast.success("Login Successfully");
-      } 
+      }
     } catch (err) {
       console.log("err", err);
       cogoToast.error("An error occurred during login");
@@ -45,11 +59,12 @@ export default function Employerlogin() {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm();
+   
+  } = useForm({
+    resolver: yupResolver(schema),
+  });
 
-  const onSubmit = (data) => {
-    console.log("data",data);
-  };
+ 
   const togglePassword = () => {
     if (passwordType === "password") {
       setPasswordType("text");
@@ -63,15 +78,14 @@ export default function Employerlogin() {
     }
   };
   const handleClick = () => {
-    employerApi()
+     
   };
-
 
   return (
     <Root>
       <div className="main1">
         <form onSubmit={handleSubmit(onSubmit)}>
-          <h1>Welcome To Your Professional Community</h1>
+          <h1>Welcome To Employer Professional Community</h1>
           <div className="child">
             <div className="child_box">
               <p>
@@ -81,49 +95,18 @@ export default function Employerlogin() {
 
               <input
                 onKeyDown={handleKeyDown}
-                type="email"
-                value={employer.email}
-                onChange={(e) => {
-                  setEmployer({ ...employer, email: e.target.value });
-                }}
-                name="email"
-                {...register("email", {
-                  required: "Email is required.",
-                  pattern: {
-                    value: /^[^@ ]+@[^@ ]+\.[^@ .]{2,}$/,
-                    message: "Email is not valid.",
-                  },
-                })}
-              />
-              {errors.email && (
-                <p className="errorMsg">{errors.email.message}</p>
-              )}
+                type="text" {...register('email')} />
+                {errors.email && <p>{errors.email.message}</p>}
             </div>
             <div className="child_box">
               <p>
-                <label >Password</label>
+                <label>Password</label>
               </p>
               <div className="password_div">
                 <div>
                   <input
                     onKeyDown={handleKeyDown}
-                    type={passwordType}
-                    value={employer.password}
-                    onChange={(e) => {
-                      setEmployer({ ...employer, password: e.target.value });
-                    }}
-                    name="password"
-                    {...register("password", {
-                      required: true,
-                      validate: {
-                        checkLength: (value) => value.length >= 5,
-                        matchPattern: (value) =>
-                          /(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s)(?=.*[!@#$*])/.test(
-                            value
-                          ),
-                      },
-                    })}
-                  />
+                    type="password" {...register('password')} />
                   <button
                     className="btn_outline_primary"
                     onClick={togglePassword}
@@ -139,29 +122,16 @@ export default function Employerlogin() {
                     )}
                   </button>
                 </div>
-                {errors.password?.type === "required" && (
-                  <p className="errorMsg">Password is required.</p>
-                )}
-                {errors.password?.type === "checkLength" && (
-                  <p className="errorMsg">
-                    Password should be at-least 5 characters.
-                  </p>
-                )}
-                {errors.password?.type === "matchPattern" && (
-                  <p className="errorMsg">
-                    Password should contain at least one uppercase letter,
-                    lowercase letter, digit, and special symbol.
-                  </p>
-                )}{" "}
+                {errors.password && <p>{errors.password.message}</p>}{" "}
               </div>
             </div>
             <div className="child_box">
               <button className="forget">Forget password?</button>
             </div>
             <div className="child_box">
-              <button className="sign" type="submit"
-              onClick={handleClick}
-              >Sign in</button>
+              <button className="sign" type="submit" onClick={handleClick}>
+                Sign in
+              </button>
             </div>
             <div className="orr">
               {" "}
@@ -181,7 +151,12 @@ export default function Employerlogin() {
               </button>
             </div>
             <div className="child_box">
-              <button className="join_now" onClick={()=>{navigate("/employersign")}}>
+              <button
+                className="join_now"
+                onClick={() => {
+                  navigate("/employersign");
+                }}
+              >
                 New to ReviewMe? Join now
               </button>
             </div>

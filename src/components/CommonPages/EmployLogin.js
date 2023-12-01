@@ -5,26 +5,67 @@ import { IoEyeOffSharp, IoEyeSharp } from "react-icons/io5";
 import { IoLogoLinkedin } from "react-icons/io";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
+import { useDispatch } from "react-redux";
+import axios from "axios";
+import { EXCHANGE_URLS_EMPLOYEE } from "../URLS";
+import { userCheckAction, userDataAction } from "../../redux/users/action";
+import cogoToast from "cogo-toast";
+
+const schema = yup.object().shape({
+  email: yup
+    .string()
+    .required("Email is required.")
+    .email("Email is not valid."),
+  password: yup
+    .string()
+    .required("Password is required.")
+    .min(5, "Password should be at least 5 characters.")
+    .matches(
+      /(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s)(?=.*[!@#$*])/,
+      "Password should contain at least one uppercase letter, lowercase letter, digit, and special symbol."
+    ),
+});
 
 export default function EmployLogin() {
-  const navigate = useNavigate();
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm();
-
-  const onSubmit = (data) => {
-    console.log(data);
-  };
   const [passwordType, setPasswordType] = useState("password");
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const onSubmit = async (data) => {
+    try {
+      const res = await axios.post(`${EXCHANGE_URLS_EMPLOYEE}/login`, data);
+      console.log("resres", res?.data?.data);
+      if (res?.status === 201) {
+        localStorage.setItem("token", res?.data?.data?.token);
+        dispatch(userDataAction(res?.data?.data?.user));
+        dispatch(userCheckAction(true));
+        navigate("/allpages");
+        cogoToast.success("Login Successfully");
+      }
+    } catch (err) {
+      console.log("err", err);
+      cogoToast.error("An error occurred during login");
+    }
+  };
+
   // const [passwordInput, setPasswordInput] = useState("");
   // const handlePasswordChange = (evnt) => {
   //   setPasswordInput(evnt.target.value);
   // };
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(schema),
+  });
+
   const togglePassword = () => {
     if (passwordType === "password") {
-      setPasswordType("Text");
+      setPasswordType("text");
       return;
     }
     setPasswordType("password");
@@ -39,29 +80,20 @@ export default function EmployLogin() {
     <Root>
       <div className="main1">
         <form onSubmit={handleSubmit(onSubmit)}>
-          <h1>Welcome To Your Professional Community</h1>
+          <h1>Welcome To Employee Professional Community</h1>
           <div className="child">
             <div className="child_box">
               <p>
                 {" "}
-                <label htmlFor="email">Email or Phone</label>
+                <label>Email or Phone</label>
               </p>
 
               <input
                 onKeyDown={handleKeyDown}
                 type="text"
-                name="email"
-                {...register("email", {
-                  required: "Email is required.",
-                  pattern: {
-                    value: /^[^@ ]+@[^@ ]+\.[^@ .]{2,}$/,
-                    message: "Email is not valid.",
-                  },
-                })}
+                {...register("email")}
               />
-              {errors.email && (
-                <p className="errorMsg">{errors.email.message}</p>
-              )}
+              {errors.email && <p>{errors.email.message}</p>}
             </div>
             <div className="child_box">
               <p>
@@ -72,17 +104,7 @@ export default function EmployLogin() {
                   <input
                     onKeyDown={handleKeyDown}
                     type={passwordType}
-                    name="password"
-                    {...register("password", {
-                      required: true,
-                      validate: {
-                        checkLength: (value) => value.length >= 5,
-                        matchPattern: (value) =>
-                          /(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s)(?=.*[!@#$*])/.test(
-                            value
-                          ),
-                      },
-                    })}
+                    {...register("password")}
                   />
                   <button
                     className="btn_outline_primary"
@@ -99,20 +121,7 @@ export default function EmployLogin() {
                     )}
                   </button>
                 </div>
-                {errors.password?.type === "required" && (
-                  <p className="errorMsg">Password is required.</p>
-                )}
-                {errors.password?.type === "checkLength" && (
-                  <p className="errorMsg">
-                    Password should be at-least 5 characters.
-                  </p>
-                )}
-                {errors.password?.type === "matchPattern" && (
-                  <p className="errorMsg">
-                    Password should contain at least one uppercase letter,
-                    lowercase letter, digit, and special symbol.
-                  </p>
-                )}{" "}
+                {errors.password && <p>{errors.password.message}</p>}
               </div>
             </div>
             <div className="child_box">
@@ -140,9 +149,14 @@ export default function EmployLogin() {
               </button>
             </div>
             <div className="child_box">
-              <button className="join_now" 
-              onClick={()=>{navigate('/employeesign')}}
-              >New to ReviewMe? Join now</button>
+              <button
+                className="join_now"
+                onClick={() => {
+                  navigate("/employeesign");
+                }}
+              >
+                New to ReviewMe? Join now
+              </button>
             </div>
           </div>
         </form>
