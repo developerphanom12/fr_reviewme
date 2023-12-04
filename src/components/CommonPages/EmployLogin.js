@@ -41,7 +41,7 @@ export default function EmployLogin() {
         localStorage.setItem("token", res?.data?.data?.token);
         dispatch(userDataAction(res?.data?.data?.user));
         dispatch(userCheckAction(true));
-        navigate("/allpages");
+        navigate("/employeeprofile");
         cogoToast.success("Login Successfully");
       }
     } catch (err) {
@@ -108,7 +108,7 @@ export default function EmployLogin() {
                   />
                   <button
                     className="btn_outline_primary"
-                    onClick={togglePassword}
+                    onClick={()=>{togglePassword}}
                   >
                     {passwordType === "password" ? (
                       <i className="eye_slash">

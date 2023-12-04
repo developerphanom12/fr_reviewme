@@ -6,6 +6,8 @@ import AllPages from "./components/CommonPages/HomePages/AllPages";
 import Employerlogin from "./components/CommonPages/Employerlogin";
 import EmployeeSign from "./components/signupPages/EmployeeSign";
 import EmployerSign from "./components/signupPages/EmployerSign";
+import EmployerProfile from "./components/ProfilePages/EmployerProfile";
+import EmployeeProfile from "./components/ProfilePages/EmployeeProfile";
 
 function App() {
   return (
@@ -16,6 +18,8 @@ function App() {
         <Route path="/employerlogin" element={<Employerlogin />} />
         <Route path="/employeesign" element={<EmployeeSign />} />
         <Route path="/employersign" element={<EmployerSign />} />
+        <Route path="/employerprofile" element={<EmployerProfile/>}/>
+        <Route path="/employeeprofile" element={<EmployeeProfile/>}/>
         <Route path="/" element={<AllPages />} />
         <Route path="/allpages" element={<AllPages />} />
       </Routes>

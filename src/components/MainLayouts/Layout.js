@@ -1,19 +1,34 @@
 import React from "react";
 import styled from "styled-components";
 import NavBar from "./NavBar";
+import PostNav from "./PostNav";
 import Footer from "../CommonPages/Footer";
+import { useSelector } from "react-redux";
 
 export default function Layout({ children }) {
+  const userCheck = useSelector((state) => state?.users?.userCheck);
+  const token = localStorage.getItem("token");
   return (
     <Root>
-      <div className="top_bar">
-        <NavBar />
+      <div className="main_bar">
+        { userCheck && token ? (
+          <div className="nav_bar">
+            <PostNav />
+          </div>
+        ) : (
+          <div className="top_bar">
+            <NavBar />
+          </div>
+        )}
       </div>
       <div className="main_body">{children}</div>
-      <div>
-
-        <Footer />
-      </div>
+      {!userCheck && !token ? (
+        <div>
+          <Footer />
+        </div>
+      ) : (
+        ""
+      )}
     </Root>
   );
 }
@@ -25,10 +40,24 @@ const Root = styled.section`
   flex-direction: column;
   margin: 0;
   flex: 1;
-  .top_bar {
-    height: 70px;
-  }
-  .main_body {
-    height:100%;
+
+  .main_bar {
+    display: flex;
+    flex-direction: column;
+    /* flex: 1; */
+    width: 100%;
+    overflow: hidden;
+    .top_bar {
+      height: 70px;
+    }
+    .nav_bar {
+      background: #ffffff;
+      display: flex;
+      height: 80px;
+      width: 100%;
+    }
+    .main_body {
+      height: 100%;
+    }
   }
 `;

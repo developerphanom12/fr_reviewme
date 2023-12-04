@@ -64,7 +64,7 @@ export default function EmployerSign() {
   return (
     <Root>
       <div className="header">
-        <h2>Employer Sign-Up Portal</h2>
+        <h2>Make the most of your professional life</h2>
       </div>
       <div className="mainbodyy">
         <form onSubmit={handleSubmit(onSubmit)}>
@@ -97,8 +97,23 @@ export default function EmployerSign() {
 
             {errors.password && <p>{errors.password.message}</p>}
           </div>
+          <div className="policy_box">
+            By clicking Continue, you agree to ReviewMe’s
+            <h6> User Agreement, Privacy Policy</h6>, and
+            <h6>Cookie Policy</h6>.
+          </div>
           <div className="child">
             <button type="submit">Submit & Join</button>
+          </div>
+          <div className="child_box">
+            <button
+              className="join_now"
+              onClick={() => {
+                navigate("/employerlogin");
+              }}
+            >
+              Already On ReviewMe? <h6> Login </h6>
+            </button>
           </div>
         </form>
       </div>
@@ -106,6 +121,7 @@ export default function EmployerSign() {
   );
 }
 const Root = styled.section`
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -114,85 +130,144 @@ const Root = styled.section`
   .header {
     h2 {
       margin: 5px;
+      padding: 5px;
       font-weight: 500;
       color: #000000e6;
     }
   }
   .mainbodyy {
-    width: 70%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    .child {
-      padding: 5px;
-      width: 100%;
+    background-color: #ffffff;
+    border-radius: 10px;
+    form {
       display: flex;
+      padding: 20px 0px;
       flex-direction: column;
-      p {
-        font-size: 12px;
-        padding: 5px 0px;
-      }
-      /* align-items: center; */
-      input {
-        border-radius: 5px;
-        padding: 10px;
-        width: 100%;
-        border: 1px solid black;
-      }
-
-      button {
-        background-color: #0a66c2;
-        /* padding: 12px 24px; */
-        border: none;
-        color: #ffffff;
-        height: 45px;
-        margin: 0px 10px;
-        font-size: 16px;
-        width: 100%;
-        border-radius: 30px;
-        font-weight: 600;
-        &:hover {
-          cursor: pointer;
-          box-shadow: 0px 0px 1px;
-          background-color: #043669;
-        }
-      }
-    }
-    .childdbox {
-      padding: 5px;
-      width: 100%;
-      display: flex;
-      flex-direction: column;
-      /* align-items: center; */
-      p {
-        font-size: 12px;
-        padding: 5px 0px;
-      }
-      .child1 {
-        padding: 0px 10px;
+      align-items: center;
+      .child {
+        padding: 5px;
         display: flex;
-        border: 1px solid black;
-        border-radius: 5px;
-        background-color: #ffffff;
-        width: 100%;
+        width: 63%;
+        flex-direction: column;
+        p {
+          font-family: "Google Sans", arial, sans-serif;
+          letter-spacing: 0.25px;
+          color: #3c4043;
+          font-size: 14px;
+          font-weight: 600;
+          font: 16px;
+          padding: 5px 0px;
+        }
+        /* align-items: center; */
         input {
+          border-radius: 3px;
           padding: 10px;
-          width: 100%;
-          border: none;
+          border: 1px solid black;
         }
 
-        .btn {
-          padding: 3px;
+        button {
+          background-color: #0a66c2;
+          /* padding: 12px 24px; */
           border: none;
-          justify-content: flex-end;
-          align-items: center;
+          color: #ffffff;
+          height: 45px;
+          margin: 0px 10px;
+          font-size: 16px;
+          border-radius: 30px;
+          font-weight: 600;
+          &:hover {
+            cursor: pointer;
+            box-shadow: 0px 0px 1px;
+            background-color: #043669;
+          }
+        }
+      }
+      .childdbox {
+        padding: 5px;
+        display: flex;
+        width: 63%;
+        flex-direction: column;
+        p {
+          font-family: "Google Sans", arial, sans-serif;
+          letter-spacing: 0.25px;
+          color: #3c4043;
+          font-size: 14px;
+          font-weight: 600;
+          font: 16px;
+          padding: 5px 0px;
+        }
+        .child1 {
+          padding: 0px 10px;
           display: flex;
-          background-color: white;
-          svg {
-            color: dodgerblue;
-            width: 17px;
-            height: 17px;
-            padding-left: 20px;
+          border: 1px solid black;
+          border-radius: 3px;
+          justify-content: space-between;
+          gap: 5px;
+          background-color: #ffffff;
+          input {
+            padding: 10px;
+            border: none;
+          }
+
+          .btn {
+            padding: 3px;
+            border: none;
+            justify-content: flex-end;
+            align-items: center;
+            display: flex;
+            background-color: white;
+            svg {
+              color: dodgerblue;
+              width: 17px;
+              height: 17px;
+              padding-left: 20px;
+            }
+          }
+        }
+      }
+      .policy_box {
+        display: flex;
+        flex-wrap: wrap;
+        padding: 5px;
+        font-size: 12px;
+        width: 60%;
+        margin: 0;
+        color: #00000099;
+        h6 {
+          font-size: 12px;
+          margin: 0;
+          color: #0a66c2;
+        }
+        @media (max-width: 789px) {
+          width: 98%;
+        }
+      }
+      .child_box {
+        .join_now {
+          gap: 5px;
+          display: flex;
+          box-shadow: 0 0 0 1px var(--color-button-container-secondary-border);
+          background-color: var(--color-button-container-secondary);
+          color: #000000bf;
+          border: none;
+          padding: 10px;
+          height: 48px;
+          text-align: center;
+          font-size: 16px;
+          font-weight: 600;
+          line-height: 1.25;
+
+          @media (max-width: 789px) {
+            width: 98%;
+          }
+        }
+        h6 {
+          margin: 0;
+          font-size: 16px;
+          font-weight: 600;
+          line-height: 1.25;
+          color: #0a66c2;
+          &:hover {
+            cursor: pointer;
           }
         }
       }
