@@ -72,6 +72,7 @@ export default function Employerlogin() {
     }
     setPasswordType("password");
   };
+  
   const handleKeyDown = (e) => {
     if (e.key === "Enter") {
       handleClick();
