@@ -8,6 +8,8 @@ import EmployeeSign from "./components/signupPages/EmployeeSign";
 import EmployerSign from "./components/signupPages/EmployerSign";
 import EmployerProfile from "./components/ProfilePages/EmployerProfile";
 import EmployeeProfile from "./components/ProfilePages/EmployeeProfile";
+import EditIntro from "./components/registerEmployeeFile/EditIntro";
+import ExpEmployee from "./components/ExpEmployee"
 
 function App() {
   return (
@@ -20,8 +22,10 @@ function App() {
         <Route path="/employersign" element={<EmployerSign />} />
         <Route path="/employerprofile" element={<EmployerProfile/>}/>
         <Route path="/employeeprofile" element={<EmployeeProfile/>}/>
+        <Route path="/editintro" element={<EditIntro />}/>
         <Route path="/" element={<AllPages />} />
         <Route path="/allpages" element={<AllPages />} />
+        <Route path="/expemployee" element={<ExpEmployee />}/>
       </Routes>
     </Layout>
   );
