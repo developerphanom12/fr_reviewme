@@ -6,10 +6,12 @@ import AllPages from "./components/CommonPages/HomePages/AllPages";
 import Employerlogin from "./components/CommonPages/Employerlogin";
 import EmployeeSign from "./components/signupPages/EmployeeSign";
 import EmployerSign from "./components/signupPages/EmployerSign";
-import EmployerProfile from "./components/ProfilePages/EmployerProfile";
-import EmployeeProfile from "./components/ProfilePages/EmployeeProfile";
+import EmployerProfile from "./components/ProfilePages/Employerr/EmployerProfile";
+import EmployeeProfile from "./components/ProfilePages/Employee/EmployeeProfile";
 import EditIntro from "./components/registerEmployeeFile/EditIntro";
 import ExpEmployee from "./components/ExpEmployee"
+import AddNewPosition from "./components/registerEmployeeFile/AddNewPosition";
+import AddEducation from "./components/registerEmployeeFile/AddEducation";
 
 function App() {
   return (
@@ -20,9 +22,11 @@ function App() {
         <Route path="/employerlogin" element={<Employerlogin />} />
         <Route path="/employeesign" element={<EmployeeSign />} />
         <Route path="/employersign" element={<EmployerSign />} />
-        <Route path="/employerprofile" element={<EmployerProfile/>}/>
-        <Route path="/employeeprofile" element={<EmployeeProfile/>}/>
+        <Route path="/employerprofile" element={<EmployerProfile />}/>
+        <Route path="/employeeprofile" element={<EmployeeProfile />}/>
         <Route path="/editintro" element={<EditIntro />}/>
+        <Route path="/addnewpositon" element={<AddNewPosition />}/>
+        <Route path="/addeducation" element={<AddEducation />}/>
         <Route path="/" element={<AllPages />} />
         <Route path="/allpages" element={<AllPages />} />
         <Route path="/expemployee" element={<ExpEmployee />}/>

@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import Footer from "../CommonPages/Footer";
+import Footer from "../../CommonPages/Footer";
 
 export default function EmployerProfile() {
   return (

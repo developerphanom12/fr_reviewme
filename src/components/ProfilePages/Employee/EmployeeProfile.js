@@ -1,6 +1,6 @@
 import React from "react";
-import background from "../images/images.jpeg";
-import "./EmployeeProfile.css";
+import background from "../../images/images.jpeg";
+import "./EmployeeProfile.scss";
 import { IoCameraOutline } from "react-icons/io5";
 import { CiEdit } from "react-icons/ci";
 import { useNavigate } from "react-router-dom";
