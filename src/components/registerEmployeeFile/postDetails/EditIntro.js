@@ -1,13 +1,19 @@
 import React from "react";
 import "./editintro.scss";
 import { useNavigate } from "react-router-dom";
+import { IoBackspace } from "react-icons/io5";
 
 export default function EditIntro() {
 
   const navigate = useNavigate();
+
+  const handleGoBack = () => {
+    window.history.back();
+  };
   return (
     <div className="main_edit_employee">
       <div className="edit_emplyee">
+        <button  onClick={handleGoBack}><IoBackspace /></button>
         <h6>* Indicates Required</h6>
 
         <div className="input_div">

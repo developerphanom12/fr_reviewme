@@ -20,6 +20,7 @@ export default function EmployeeProfile() {
           </div>
           <div className="bio">
             Name
+            <button onClick={()=>{navigate("/employeeview")}}>View details</button>
             <button onClick={()=>{navigate("/editintro")}}>
               <CiEdit />
             </button>

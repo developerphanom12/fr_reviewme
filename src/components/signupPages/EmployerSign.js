@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { IoEyeOffSharp, IoEyeSharp } from "react-icons/io5";
+import { userCheckAction, userDataAction } from "../../redux/users/action";
 
 export default function EmployerSign() {
   const [showPassword, setShowPassword] = useState(false);
@@ -44,6 +45,9 @@ export default function EmployerSign() {
       if (res?.status === 201) {
         cogoToast.success("sign-up successfully");
         reset(); // Reset form after successful submission
+        localStorage.setItem("token", res?.data?.data?.user?.token);
+        dispatch(userDataAction(res?.data?.data?.user));
+        dispatch(userCheckAction(true));
         navigate("/employerlogin");
       }
     } catch (err) {

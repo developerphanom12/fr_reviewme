@@ -1,7 +1,7 @@
-import React from "react";
+import React  from "react";
 import "./addeducation.scss";
-import { IoCloseSharp } from "react-icons/io5";
-import { EXCHANGE_URLS_EMPLOYEE } from "../URLS";
+import { IoBackspace, IoCloseSharp } from "react-icons/io5";
+import { EXCHANGE_URLS_EMPLOYEE } from "../../URLS";
 import cogoToast from "cogo-toast";
 import * as yup from "yup";
 import axios from "axios";
@@ -15,19 +15,15 @@ export default function AddEducation() {
     school: yup.string().required("School is required."),
     degree: yup.string().required("Degree is required."),
     start_date: yup
-    .string()
-    .required("Start Date is required.")
-    .matches(
-      /^\d{4}\/\d{2}\/\d{2}$/,
-      "Invalid date format. Please use yyyy/mm/dd."
-    ),
+      .string()
+      .required("Start Date is required.")
+      
+      ,
     end_date: yup
-    .string()
-    .required("End Date is required.")
-    .matches(
-      /^\d{4}\/\d{2}\/\d{2}$/,
-      "Invalid date format. Please use yyyy/mm/dd."
-    ),
+      .string()
+      .required("End Date is required.")
+      
+      ,
     grade: yup.string().required("Grade is Required"),
     typeof_grade: yup.string().required("Select Percentage or CGPA"),
   });
@@ -54,11 +50,10 @@ export default function AddEducation() {
         axiosConfig
       );
       console.log("resss", res?.data);
-      if (res?.status === 201) {
-        cogoToast.success("Added successfully");
-        navigate("/employeeprofile");
-        reset();
-      }
+      cogoToast.success("Added successfully");
+      navigate("/employeeprofile");
+    
+      reset();
     } catch (err) {
       console.log("err", err);
       cogoToast.error("An error occurred");
@@ -68,10 +63,17 @@ export default function AddEducation() {
   const onSubmit = (data) => {
     EducationApi(data);
   };
+  const handleGoBack = () => {
+    window.history.back();
+  };
+
+  // avineetsingh782@gmail.com
+  // Avi@1527
   return (
     <div className="main_edit_employee">
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="edit_emplyee">
+        <button  onClick={handleGoBack}><IoBackspace /></button>
           <div className="fixed_header">
             <h3>
               Add Education <IoCloseSharp />
@@ -100,22 +102,22 @@ export default function AddEducation() {
           <div className="input_div">
             <span>Start date*</span>
             <div className="select_start_date">
-            <input
-            type="text"
-            pattern="\d{4}/\d{2}/\d{2}"
-            {...register("start_date")}
-          />
+              <input
+                type="date"
+                pattern="\d{2}/\d{2}/\d{4}"
+                {...register("start_date")}
+              />
               {errors.start_date && <p>{errors.start_date.message}</p>}
             </div>
           </div>
           <div className="input_div">
             <span>End date</span>
             <div className="select_end_date">
-            <input
-            type="text"
-            pattern="\d{4}/\d{2}/\d{2}"
-            {...register("end_date")}
-          />
+              <input
+                type="date"
+                pattern="\d{4}/\d{2}/\d{2}"
+                {...register("end_date")}
+              />
               {errors.end_date && <p>{errors.end_date.message}</p>}
             </div>
           </div>
