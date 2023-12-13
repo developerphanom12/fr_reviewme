@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import Footer from "../../CommonPages/Footer";
+import "./employerprofile.scss" ;
 
 export default function EmployerProfile() {
   return (

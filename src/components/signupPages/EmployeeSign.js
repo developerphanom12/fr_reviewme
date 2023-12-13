@@ -301,8 +301,8 @@ const Root = styled.section`
         margin: 0;
         color: navy;
         &:hover {
-            cursor: pointer;
-          }
+          cursor: pointer;
+        }
       }
     }
   }
