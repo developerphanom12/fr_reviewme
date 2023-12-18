@@ -1,17 +1,34 @@
 import React, { useState } from "react";
 import { IoMdStarOutline } from "react-icons/io";
 import { IoApps, IoHome, IoNotifications } from "react-icons/io5";
-import { FaUserGroup } from "react-icons/fa6";
-import { FcBusiness } from "react-icons/fc";
+import { FaBagShopping, FaUserGroup } from "react-icons/fa6";
 import { FaSearch, FaUserCircle } from "react-icons/fa";
 import styled from "styled-components";
+import { FcList } from "react-icons/fc";
 import { BiSolidMessageRoundedDots } from "react-icons/bi";
-
+import { useNavigate } from "react-router-dom";
+import { MdOutlineClear } from "react-icons/md";
+import { userCheckAction } from "../../redux/users/action";
+import { useDispatch, useSelector } from "react-redux";
 export default function PostNav() {
-  const [active, setActive] = useState("courses");
+  const [active, setActive] = useState("Home");
+  const [activePop, setActivePop] = useState(false);
+  const userDetails = useSelector((state) => state?.users.user);
+
+  const navigate = useNavigate();
+  const dispatch = useDispatch()
+  const handleLogoutClick = () => {
+    localStorage.setItem("token", "");
+    dispatch(userCheckAction(false));
+    navigate("/");
+  };
   return (
     <Root>
-      <div className="logo">
+      <div className="logo"
+      onClick={() => {
+        handleLogoutClick();
+      }}
+      >
         <IoMdStarOutline />
         ReviewMe
       </div>
@@ -21,9 +38,11 @@ export default function PostNav() {
       </div>
       <div className="main_nav">
         <button
-          className={active === "courses" ? "btn_1 active" : "btn_1"}
+          className={active === "home" ? "btn_1 active" : "btn_1"}
           onClick={() => {
-            setActive("courses");
+            setActive("home")
+            navigate("/home");
+
           }}
         >
           <IoHome />
@@ -31,9 +50,11 @@ export default function PostNav() {
         </button>
 
         <button
-          className={active === "courses" ? "btn_1 active" : "btn_1"}
+          className={active === "mynetwork" ? "btn_1 active" : "btn_1"}
           onClick={() => {
-            setActive("courses");
+            setActive("mynetwork")
+            navigate("/mynetwork");
+
           }}
         >
           <FaUserGroup />
@@ -41,19 +62,23 @@ export default function PostNav() {
         </button>
 
         <button
-          className={active === "courses" ? "btn_1 active" : "btn_1"}
+          className={active === "jobs" ? "btn_1 active" : "btn_1"}
           onClick={() => {
-            setActive("courses");
+            setActive("jobs")
+            navigate("/jobs");
+
           }}
         >
-          <FcBusiness />
+          <FaBagShopping />
           Jobs
         </button>
 
         <button
-          className={active === "courses" ? " active" : "btn_1"}
+          className={active === "message" ? " active" : "btn_1"}
           onClick={() => {
-            setActive("courses");
+            setActive("message")
+            navigate("/message");
+
           }}
         >
           <BiSolidMessageRoundedDots />
@@ -61,37 +86,131 @@ export default function PostNav() {
         </button>
 
         <button
-          className={active === "courses" ? " active" : "btn_1"}
+          className={active === "notification" ? " active" : "btn_1"}
           onClick={() => {
-            setActive("courses");
+            setActive("notification")
+            navigate("/notification");
+
           }}
         >
           <IoNotifications />
           Notification
         </button>
 
-        <div className="profile">
+
+{userDetails.role === "employ" ? (
+
+<button
+className={active === "profile" ? " active" : "btn_1"}
+onClick={() => {
+  setActive("profile")
+  navigate("/employeeprofile");
+}}
+>
+<FaUserCircle />
+Profile
+</button>
+):(
+
+  <button
+  className={active === "profile" ? " active" : "btn_1"}
+  onClick={() => {
+    setActive("profile")
+    navigate("/employerprofile");
+  }}
+>
+  <FaUserCircle />
+  Profile
+</button>
+)}
+       
+
+        <div className="business">
           <button
-            className={active === "courses" ? " active" : "btn_1"}
+            className={active === "forbusiness" ? " active" : "btn_1"}
             onClick={() => {
-              setActive("courses");
+              setActive("forbusiness")
+              navigate("/forbusiness");
             }}
           >
-            <FaUserCircle />
-            Profile
+            <IoApps />
+            For Business
           </button>
         </div>
       </div>
-      <div className="business">
-        <button
-          className={active === "courses" ? " active" : "btn_1"}
+      <div
+        className="menu"
+        onClick={() => {
+          setActivePop(true);
+        }}
+      >
+        <FcList />
+      </div>
+      <div
+        className={activePop ? "pop_nav" : "no_pop"}
+        onClick={() => {
+          setActivePop(false);
+        }}
+      >
+        <button>
+          <MdOutlineClear />
+        </button>
+        <div
+          className="opt_btn"
           onClick={() => {
-            setActive("courses");
+            navigate("/home");
           }}
         >
-          <IoApps />
-          For Bussiness
-        </button>
+          Home
+        </div>
+        <div
+          className="opt_btn"
+          onClick={() => {
+            navigate("/mynetwork");
+          }}
+        >
+          My Network
+        </div>
+        <div
+          className="opt_btn"
+          onClick={() => {
+            navigate("/jobs");
+          }}
+        >
+          Jobs
+        </div>
+        <div
+          className="opt_btn"
+          onClick={() => {
+            navigate("/message");
+          }}
+        >
+          Message
+        </div>
+        <div
+          className="opt_btn"
+          onClick={() => {
+            navigate("/notification");
+          }}
+        >
+          Notification
+        </div>
+        <div
+          className="opt_btn"
+          onClick={() => {
+            navigate("/profile");
+          }}
+        >
+          Profile
+        </div>
+        <div
+          className="opt_btn"
+          onClick={() => {
+            navigate("/forbusiness");
+          }}
+        >
+          For Business
+        </div>
       </div>
     </Root>
   );
@@ -102,7 +221,7 @@ const Root = styled.section`
   align-items: center;
   padding-left: 30px;
   border-bottom: 1px solid lightgray;
-  justify-content: space-around;
+  gap: 40px;
   .logo {
     background-color: dodgerblue;
     border-radius: 4px;
@@ -116,6 +235,15 @@ const Root = styled.section`
       font-weight: 600;
       width: 25px;
       height: 25px;
+    }
+    @media (max-width: 999px) {
+      font-size: 18px;
+      svg {
+        color: #ffffff;
+        font-weight: 600;
+        width: 20px;
+        height: 20px;
+      }
     }
   }
   .search_bar {
@@ -139,28 +267,15 @@ const Root = styled.section`
     display: flex;
     align-items: center;
     justify-content: center;
-    display: flex;
     padding: 10px;
     font-size: 13px;
+    gap: 10px;
+    @media (max-width: 950px) {
+      display: none;
+    }
     &:hover {
       color: black;
       transition: all 0.1s ease-in-out 0s;
-    }
-  
-    .btn_1 {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      cursor: pointer;
-      border: transparent;
-      color: #fff;
-      background-size: 300% 100%;
-      transition: all 0.3s ease-in-out 0s;
-      &:hover {
-        color: black;
-        transition: all 0.1s ease-in-out 0s;
-      }
     }
     button {
       background-color: #ffffff;
@@ -171,67 +286,136 @@ const Root = styled.section`
       justify-content: center;
       align-items: center;
       &:hover {
+        cursor: pointer;
         color: black;
         transition: all 0.1s ease-in-out 0s;
+        svg {
+          color: black;
+        }
       }
-      svg {
-      width: 25px;
-      height: 25px;
-      color: rgb(120, 144, 156);
-    }
-    }
-    .active {
-      border-bottom: 2px solid black;
-      color: rgb(120, 144, 156);
-    }
-
-    .profile {
-      padding: 10px;
-      font-size: 13px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-direction: column;
       svg {
         width: 25px;
         height: 25px;
         color: rgb(120, 144, 156);
       }
-      button {
-        background-color: #ffffff;
-        color: grey;
-        border: none;
+      .btn_1 {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        border: transparent;
+        color: #fff;
+        background-size: 300% 100%;
+        transition: all 0.3s ease-in-out 0s;
+        &:hover {
+          color: black;
+          transition: all 0.1s ease-in-out 0s;
+        }
       }
-      .active {
-        border-bottom: 2px solid black;
-        color: rgb(120, 144, 156);
-      }
-    }
-  }
-  .business {
-    display: flex;
-    flex-direction: column;
-    font-size: 15px;
-    align-items: center;
-    justify-content: center;
-    padding: 10px;
-    gap: 10px;
-
-    svg {
-      width: 25px;
-      height: 25px;
-      color: rgb(120, 144, 156);
-    }
-    button {
-      display: flex;
-      flex-direction: column;
-      background-color: #ffffff;
-      color: grey;
-      border: none;
     }
     .active {
       border-bottom: 2px solid black;
-      color: rgb(120, 144, 156);
+      color: black;
+      svg {
+        color: black;
+      }
     }
+
+    .business {
+      display: flex;
+      flex-direction: column;
+      font-size: 15px;
+      align-items: center;
+      justify-content: center;
+      padding: 10px;
+      gap: 10px;
+      border-left: 1px solid lightgray;
+
+      button {
+        display: flex;
+        flex-direction: column;
+        background-color: #ffffff;
+        color: grey;
+        border: none;
+        &:hover {
+          cursor: pointer;
+          color: black;
+          transition: all 0.1s ease-in-out 0s;
+          svg {
+            color: black;
+          }
+        }
+        svg {
+          width: 25px;
+          height: 25px;
+          color: rgb(120, 144, 156);
+        }
+      }
+      .active {
+        border-bottom: 2px solid black;
+        color: black;
+        svg {
+          color: black;
+        }
+      }
+    }
+  }
+
+  .menu {
+    svg {
+      width: 20px;
+      height: 20px;
+    }
+    @media (max-width: 950px) {
+      display: block;
+      padding-right: 10px;
+    }
+  }
+  .menu {
+    @media (min-width: 951px) {
+      display: none;
+    }
+  }
+
+  .pop_nav {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    right: 0px;
+    top: 0px;
+    z-index: 10;
+    height: 440px;
+    width: 30%;
+    padding: 10px;
+    gap: 10px;
+    color: white;
+    cursor: pointer;
+    background: dodgerblue;
+    button {
+      border: none;
+      color: white;
+      text-align: right;
+      background: none;
+      svg {
+        width: 20px;
+        height: 20px;
+      }
+    }
+
+    .opt_btn{
+      padding: 10px;
+      border-bottom: 1px solid white;
+      &:hover{
+        background-color: #fff;
+        color:dodgerblue ;
+      }
+    }
+    @media (min-width: 951px) {
+      display: none;
+    }
+  }
+  .no_pop {
+    display: none;
   }
 `;

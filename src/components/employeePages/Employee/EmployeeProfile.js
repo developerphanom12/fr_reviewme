@@ -1,7 +1,7 @@
 import React from "react";
-import background from "../../images/profileeee.avif";
 import backimg from "../../images/bannerbackground.jpg";
 import "./EmployeeProfile.scss";
+import background from "../../images/profileeee.avif";
 import { IoCameraOutline } from "react-icons/io5";
 import { CiEdit } from "react-icons/ci";
 import { useNavigate } from "react-router-dom";

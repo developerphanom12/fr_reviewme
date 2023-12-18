@@ -1,17 +1,16 @@
 import React, { useState } from "react";
+import logpage from "../../images/graphic-cartoon-character-we-are-hiring-vector-36904182.jpg";
+import { IoEyeOffSharp, IoEyeSharp, IoLogoLinkedin } from "react-icons/io5";
 import styled from "styled-components";
-import logpage from "../images/looggiinn.png";
-import { IoEyeOffSharp, IoEyeSharp } from "react-icons/io5";
-import { IoLogoLinkedin } from "react-icons/io";
-import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { EXCHANGE_URLS_EMPLOYER } from "../../URLS";
+import { useForm } from "react-hook-form";
+import axios from "axios";
+import cogoToast from "cogo-toast";
+import { userCheckAction, userDataAction } from "../../../redux/users/action";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { useDispatch } from "react-redux";
-import axios from "axios";
-import { EXCHANGE_URLS_EMPLOYEE } from "../URLS";
-import { userCheckAction, userDataAction } from "../../redux/users/action";
-import cogoToast from "cogo-toast";
 
 const schema = yup.object().shape({
   email: yup
@@ -28,20 +27,21 @@ const schema = yup.object().shape({
     ),
 });
 
-export default function EmployLogin() {
+export default function Employerlogin() {
+ 
   const [passwordType, setPasswordType] = useState("password");
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
-  const onSubmit = async (data) => {
+  
+  const  onSubmit = async (data) => {
     try {
-      const res = await axios.post(`${EXCHANGE_URLS_EMPLOYEE}/login`, data);
+      const res = await axios.post(`${EXCHANGE_URLS_EMPLOYER}/login`, data);
       console.log("resres", res?.data?.data);
       if (res?.status === 201) {
         localStorage.setItem("token", res?.data?.data?.token);
         dispatch(userDataAction(res?.data?.data?.user));
         dispatch(userCheckAction(true));
-        navigate("/employeeprofile");
+        navigate("/employerprofile");
         cogoToast.success("Login Successfully");
       }
     } catch (err) {
@@ -59,10 +59,12 @@ export default function EmployLogin() {
     register,
     handleSubmit,
     formState: { errors },
+   
   } = useForm({
     resolver: yupResolver(schema),
   });
 
+ 
   const togglePassword = () => {
     if (passwordType === "password") {
       setPasswordType("text");
@@ -70,17 +72,21 @@ export default function EmployLogin() {
     }
     setPasswordType("password");
   };
+  
   const handleKeyDown = (e) => {
     if (e.key === "Enter") {
       handleClick();
     }
   };
-  const handleClick = () => {};
+  const handleClick = () => {
+     
+  };
+
   return (
     <Root>
       <div className="main1">
         <form onSubmit={handleSubmit(onSubmit)}>
-          <h1>Welcome To Employee Professional Community</h1>
+          <h1>Welcome To Employer Professional Community</h1>
           <div className="child">
             <div className="child_box">
               <p>
@@ -90,22 +96,18 @@ export default function EmployLogin() {
 
               <input
                 onKeyDown={handleKeyDown}
-                type="text"
-                {...register("email")}
-              />
-              {errors.email && <p>{errors.email.message}</p>}
+                type="text" {...register('email')} />
+                {errors.email && <p>{errors.email.message}</p>}
             </div>
             <div className="child_box">
               <p>
-                <label htmlFor="password">Password</label>
+                <label>Password</label>
               </p>
               <div className="password_div">
                 <div>
                   <input
                     onKeyDown={handleKeyDown}
-                    type={passwordType}
-                    {...register("password")}
-                  />
+                    type="password" {...register('password')} />
                   <button
                     className="btn_outline_primary"
                     onClick={()=>{togglePassword}}
@@ -121,14 +123,16 @@ export default function EmployLogin() {
                     )}
                   </button>
                 </div>
-                {errors.password && <p>{errors.password.message}</p>}
+                {errors.password && <p>{errors.password.message}</p>}{" "}
               </div>
             </div>
             <div className="child_box">
               <button className="forget">Forget password?</button>
             </div>
             <div className="child_box">
-              <button className="sign">Sign in</button>
+              <button className="sign" type="submit" onClick={handleClick}>
+                Sign in
+              </button>
             </div>
             <div className="orr">
               {" "}
@@ -142,8 +146,7 @@ export default function EmployLogin() {
               <h6>Cookie Policy</h6>.
             </div>
             <div className="child_box">
-              <label></label>
-              <button className="linked" type="submit">
+              <button className="linked">
                 <IoLogoLinkedin />
                 <p>Continue with LinkedIn</p>
               </button>
@@ -152,7 +155,7 @@ export default function EmployLogin() {
               <button
                 className="join_now"
                 onClick={() => {
-                  navigate("/employeesign");
+                  navigate("/employersign");
                 }}
               >
                 New to ReviewMe? Join now
@@ -223,7 +226,7 @@ const Root = styled.section`
           color: #000000e6;
           border-radius: 5px;
           &:hover {
-            /* border: 2px solid black; */
+            border: 2px solid black;
             background-color: #d3d3d347;
           }
           @media (max-width: 789px) {
@@ -339,7 +342,7 @@ const Root = styled.section`
             border-radius: 5px;
             position: relative;
             &:hover {
-              /* border: 2px solid black; */
+              border: 2px solid black;
               background-color: #d3d3d347;
             }
             @media (max-width: 789px) {
@@ -353,7 +356,7 @@ const Root = styled.section`
             text-align: center;
             height: 45px;
             position: relative;
-            top: 5px;
+            top: 3px;
             left: -44px;
             border: none;
             background-color: white;

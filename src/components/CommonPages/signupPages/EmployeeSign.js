@@ -3,20 +3,19 @@ import styled from "styled-components";
 import { useForm } from "react-hook-form";
 import { IoEyeOffSharp, IoEyeSharp } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
-import { EXCHANGE_URLS_EMPLOYEE } from "../URLS";
 import axios from "axios";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import cogoToast from "cogo-toast";
-import { userCheckAction, userDataAction } from "../../redux/users/action";
+import { EXCHANGE_URLS_EMPLOYEE } from "../../URLS";
 
 export default function EmployeeSign() {
   const [showPassword, setShowPassword] = useState(false);
+  const navigate = useNavigate();
 
   const togglePasswordVisibility = () => {
     setShowPassword((prevShowPassword) => !prevShowPassword);
   };
-  const navigate = useNavigate();
   const schema = yup.object().shape({
     email: yup
       .string()
@@ -41,11 +40,8 @@ export default function EmployeeSign() {
       console.log("resss", res?.data);
       if (res?.status === 201) {
         cogoToast.success("sign-up successfully");
-        reset();
-        localStorage.setItem("token", res?.data?.data?.user?.token);
-        dispatch(userDataAction(res?.data?.data?.user));
-        dispatch(userCheckAction(true));
         navigate("/employlogin");
+        reset();
       }
     } catch (err) {
       console.log("err", err);
