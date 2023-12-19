@@ -20,12 +20,12 @@ import Employerlogin from "./components/CommonPages/loginpages/Employerlogin";
 import EmployeeSign from "./components/CommonPages/signupPages/EmployeeSign";
 import EmployerSign from "./components/CommonPages/signupPages/EmployerSign";
 
-
+// {"users":"{\"user\":{\"id\":2,\"email\":\"avineetsingh782@gmail.com\",\"role\":\"employ\",\"token\":\"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJhdmluZWV0c2luZ2g3ODJAZ21haWwuY29tIiwicm9sZSI6ImVtcGxveSIsImlhdCI6MTcwMjk3NTY0MX0.ZtSWRX5Oi5CwuhmrUBUFijNBUVWn7kHayIrrJoJ_ygY\"},\"userCheck\":true,\"role\":\"\"}","_persist":"{\"version\":-1,\"rehydrated\":true}"}
 function App() {
   const userCheck = useSelector((state) => state?.users?.userCheck);
-  const userDetails = useSelector((state) => state?.users);
+  const userDetails = useSelector((state) => state?.users?.user);
   const token = localStorage.getItem("token");
-  console.log("role",  userDetails?.user?.role)
+  console.log("role",  userDetails?.role)
   return (
     <Layout>
       <Routes>
@@ -38,7 +38,7 @@ function App() {
             <Route path="notification" element={<Notification />} />
             <Route path="forbusiness" element={<ForBusiness />} />
 
-            {userDetails?.user?.role === "employ" ? (
+            {userDetails?.role === "employ" ? (
               <>
                 <Route path="/employeeprofile" element={<EmployeeProfile />} />
                 <Route path="employeeview" element={<EmployeeView />} />
@@ -46,7 +46,7 @@ function App() {
                 <Route path="/addnewpositon" element={<AddNewPosition />} />
                 <Route path="/addeducation" element={<AddEducation />} />
               </>
-            ) : userDetails?.user?.role === "employer" ? (
+            ) : userDetails?.role === "employer" ? (
               <>
                 <Route path="/employerprofile" element={<EmployerProfile />} />
              

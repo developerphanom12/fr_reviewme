@@ -38,8 +38,8 @@ export default function EmployLogin() {
       const res = await axios.post(`${EXCHANGE_URLS_EMPLOYEE}/login`, data);
       console.log("resres", res?.data?.data);
       if (res?.status === 201) {
-        localStorage.setItem("token", res?.data?.data?.user?.token);
-        dispatch(userDataAction(res?.data?.data?.user));
+        localStorage.setItem("token", res?.data?.data?.token);
+        dispatch(userDataAction(res?.data?.data));
         dispatch(userCheckAction(true));
         navigate("/employeeprofile");
         cogoToast.success("Login Successfully");

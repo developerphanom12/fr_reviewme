@@ -42,7 +42,7 @@ export default function EmployerProfile() {
           </div>
         </div>
         <div className="bio_2">
-          <div className="bio_name"><h2>Srishti</h2></div>
+          <div className="bio_name"><h2>Swati Thakur</h2></div>
           <div className="connection"> connection </div>
           <div className="items"> my items </div>
         </div>

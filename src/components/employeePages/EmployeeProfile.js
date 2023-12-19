@@ -43,7 +43,7 @@ export default function EmployeeProfile() {
           </div>
           <div className="bio_2">
             <div className="bio_name">
-              <h2>Srishti</h2>
+              <h2>Srishti Garg</h2>
             </div>
             <div className="connection">
               {" "}
