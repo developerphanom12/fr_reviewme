@@ -22,7 +22,17 @@ export default function EmployeeSign() {
       .required("Email is required.")
       .email("Email is not valid."),
     phone_number: yup.string().required("Phone number is required."),
-    password: yup.string().required("Password is required."),
+    password: yup
+    .string()
+    .required("Password is required.")
+    .matches(
+      /(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s)(?=.*[!@#$*])/,
+      "Password should contain at least one uppercase letter, lowercase letter, digit, and special symbol."
+    ),
+    first_name: yup.string().required("First Name is required"),
+    last_name : yup.string().required("Last Name is required"),
+    gender : yup.string().required("Select Gender")
+    // valid('male', 'female','other')
   });
 
   const {
@@ -65,6 +75,40 @@ export default function EmployeeSign() {
       </div>
       <div className="mainbodyy">
         <form onSubmit={handleSubmit(onSubmit)}>
+        <div className="child">
+            <p>First Name</p>
+            <input
+              onKeyDown={handleKeyDown}
+              type="first_name"
+              {...register("first_name")}
+              placeholder="first name"
+            />
+            {errors.first_name && <p>{errors.first_name.message}</p>}
+          </div>
+          <div className="child">
+            <p>Last Name</p>
+            <input
+              onKeyDown={handleKeyDown}
+              type="last_name"
+              {...register("last_name")}
+              placeholder="last name"
+            />
+            {errors.last_name && <p>{errors.last_name.message}</p>}
+          </div>
+          <div className="child">
+            <p>Gender</p>
+            <select
+              {...register("gender")}
+              value={register("gender").value}
+              onChange={(e) => register("gender").onChange(e)}
+            >
+              <option value="">Type of grade</option>
+              <option value="male">Male</option>
+              <option value="female">Female</option>
+              <option value="other">Other</option>
+            </select>
+            {errors.gender && <p>{errors.gender.message}</p>}
+          </div>
           <div className="child">
             <p>Email</p>
             <input
@@ -170,7 +214,11 @@ const Root = styled.section`
           padding: 10px;
           border: 1px solid black;
         }
-
+        select{
+          border-radius: 3px;
+          border: 1px solid black;
+          padding: 10px;
+        }
         button {
           background-color: #0a66c2;
           /* padding: 12px 24px; */

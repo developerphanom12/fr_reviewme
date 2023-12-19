@@ -1,32 +1,31 @@
 import { Route, Routes } from "react-router-dom";
 import Layout from "./components/MainLayouts/Layout";
 import PageNF from "./components/PageNF";
-import EmployLogin from "./components/CommonPages/loginpages/EmployLogin";
 import AllPages from "./components/CommonPages/HomePages/AllPages";
-import Employerlogin from "./components/CommonPages/loginpages/Employerlogin";
-import EmployerProfile from "./components/employerPages/Employerr/EmployerProfile";
-import EmployeeProfile from "./components/employeePages/Employee/EmployeeProfile";
-import EditIntro from "./components/registerEmployeeFile/postDetails/EditIntro";
-import AddNewPosition from "./components/registerEmployeeFile/postDetails/AddNewPosition";
-import AddEducation from "./components/registerEmployeeFile/postDetails/AddEducation";
-import EmployeeView from "./components/registerEmployeeFile/getDetails/EmployeeView";
+import { useSelector } from "react-redux";
+import EmployeeProfile from "./components/employeePages/EmployeeProfile";
+import EmployerProfile from "./components/employerPages/EmployerProfile";
 import Home from "./components/topNavPages/Home";
 import MyNetwork from "./components/topNavPages/MyNetwork";
 import Jobs from "./components/topNavPages/Jobs";
-import Message from "./components/topNavPages/Message";
+import  Message  from "./components/topNavPages/Message";
 import Notification from "./components/topNavPages/Notification";
 import ForBusiness from "./components/topNavPages/ForBusiness";
-import { useSelector } from "react-redux";
+import EditIntro from "./components/employeePages/postDetails/EditIntro";
+import EmployeeView from "./components/employeePages/getDetails/EmployeeView";
+import AddNewPosition from "./components/employeePages/postDetails/AddNewPosition";
+import AddEducation from "./components/employeePages/postDetails/AddEducation";
+import EmployLogin from "./components/CommonPages/loginpages/EmployLogin";
+import Employerlogin from "./components/CommonPages/loginpages/Employerlogin";
 import EmployeeSign from "./components/CommonPages/signupPages/EmployeeSign";
 import EmployerSign from "./components/CommonPages/signupPages/EmployerSign";
-import EmployerView from "./components/employerPages/registerEmployerFile/getDetails/EmployerView";
-import ErAddNewPosition from "./components/employerPages/registerEmployerFile/postDetails/ErAddNewPosition";
-import ErEditIntro from "./components/employerPages/registerEmployerFile/postDetails/ErEditIntro";
+
 
 function App() {
   const userCheck = useSelector((state) => state?.users?.userCheck);
-  const userDetails = useSelector((state) => state?.users?.user);
+  const userDetails = useSelector((state) => state?.users);
   const token = localStorage.getItem("token");
+  console.log("role",  userDetails?.user?.role)
   return (
     <Layout>
       <Routes>
@@ -39,7 +38,7 @@ function App() {
             <Route path="notification" element={<Notification />} />
             <Route path="forbusiness" element={<ForBusiness />} />
 
-            {userDetails.role === "employ" ? (
+            {userDetails?.user?.role === "employ" ? (
               <>
                 <Route path="/employeeprofile" element={<EmployeeProfile />} />
                 <Route path="employeeview" element={<EmployeeView />} />
@@ -47,12 +46,10 @@ function App() {
                 <Route path="/addnewpositon" element={<AddNewPosition />} />
                 <Route path="/addeducation" element={<AddEducation />} />
               </>
-            ) : userDetails.role === "employer" ? (
+            ) : userDetails?.user?.role === "employer" ? (
               <>
                 <Route path="/employerprofile" element={<EmployerProfile />} />
-                <Route path="employerview" element={<EmployerView />} />
-                <Route path="/ereditintro" element={<ErEditIntro />} />
-                <Route path="/eraddnewpositon" element={<ErAddNewPosition />} />
+             
               </>
             ) : (
               ""
@@ -66,12 +63,12 @@ function App() {
             <Route path="/employeesign" element={<EmployeeSign />} />
             <Route path="/employersign" element={<EmployerSign />} />
             <Route path="/" element={<AllPages />} />
+            <Route path="/allpages" element={<AllPages />} />
           </>
         )}
 
-        <Route path="/allpages" element={<AllPages />} />
 
-        {/* nav bar pages */}
+        
       </Routes>
     </Layout>
   );

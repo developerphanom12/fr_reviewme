@@ -22,7 +22,13 @@ export default function EmployerSign() {
       .required("Email is required.")
       .email("Email is not valid."),
     phone_number: yup.string().required("Phone number is required."),
-    password: yup.string().required("Password is required."),
+    password: yup
+    .string()
+    .required("Password is required.")
+    .matches(
+      /(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s)(?=.*[!@#$*])/,
+      "Password should contain at least one uppercase letter, lowercase letter, digit, and special symbol."
+    ),
   });
 
   const {
@@ -34,17 +40,15 @@ export default function EmployerSign() {
     resolver: yupResolver(schema),
   });
 
-  const registerApi = async (data) => {
+  const registerrApi = async (data) => {
     try {
       const res = await axios.post(
-        `${EXCHANGE_URLS_EMPLOYER}/registerss`,
-        data
-      );
-      console.log("resss", res?.data?.data);
+        `${EXCHANGE_URLS_EMPLOYER}/registerss`,data);
+      console.log("ressppps", res?.data);
       if (res?.status === 201) {
-        navigate("/employerlogin");
         cogoToast.success("sign-up successfully");
-        reset(); 
+        navigate("/employerlogin");
+        reset();
       }
     } catch (err) {
       console.log("err", err);
@@ -53,14 +57,9 @@ export default function EmployerSign() {
   };
 
   const onSubmit = (data) => {
-    registerApi(data);
+    registerrApi(data);
   };
-  const handleKeyDown = (e) => {
-    if (e.key === "Enter") {
-      handleClick();
-    }
-  };
-  const handleClick = () => {};
+
   return (
     <Root>
       <div className="header">
@@ -70,11 +69,7 @@ export default function EmployerSign() {
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="child">
             <p>Email</p>
-            <input
-              onKeyDown={handleKeyDown}
-              type="email"
-              {...register("email")}
-            />
+            <input type="email" {...register("email")} />
             {errors.email && <p>{errors.email.message}</p>}
           </div>
           <div className="child">
@@ -86,7 +81,6 @@ export default function EmployerSign() {
             <p>Password</p>
             <div className="child1">
               <input
-                onKeyDown={handleKeyDown}
                 type={showPassword ? "text" : "password"}
                 {...register("password")}
               />
@@ -94,7 +88,6 @@ export default function EmployerSign() {
                 {showPassword ? <IoEyeSharp /> : <IoEyeOffSharp />}
               </button>
             </div>
-
             {errors.password && <p>{errors.password.message}</p>}
           </div>
           <div className="policy_box">
@@ -157,7 +150,6 @@ const Root = styled.section`
           font: 16px;
           padding: 5px 0px;
         }
-        /* align-items: center; */
         input {
           border-radius: 3px;
           padding: 10px;
@@ -166,7 +158,6 @@ const Root = styled.section`
 
         button {
           background-color: #0a66c2;
-          /* padding: 12px 24px; */
           border: none;
           color: #ffffff;
           height: 45px;

@@ -1,9 +1,9 @@
 import React from "react";
 import "./employerprofile.scss" ;
-import background from "../../images/profileeee.avif";
+import background from "../../components/images/profileeee.avif";
 import { IoCameraOutline } from "react-icons/io5";
 import { CiEdit } from "react-icons/ci";
-import backimg from "../../images/bannerbackground.jpg";
+import backimg from "../../components/images/bannerbackground.jpg";
 import { useNavigate } from "react-router-dom";
 
 export default function EmployerProfile() {

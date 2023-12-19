@@ -1,7 +1,7 @@
 import React from "react";
-import backimg from "../../images/bannerbackground.jpg";
+import backimg from "../../components/images/bannerbackground.jpg";
 import "./EmployeeProfile.scss";
-import background from "../../images/profileeee.avif";
+import background from "../../components/images/profileeee.avif";
 import { IoCameraOutline } from "react-icons/io5";
 import { CiEdit } from "react-icons/ci";
 import { useNavigate } from "react-router-dom";
@@ -58,6 +58,9 @@ export default function EmployeeProfile() {
         </div>
         <div className="about">
           <h1>About</h1>
+          <p>
+          Marketing & Branding Professional with 7 years of expertise establishing brands, driving growth, and generating income. Offer exceptional value by combining senior-level experience with extensive knowledge of technology product development, designing and digital marketing, as well as a master's degree in Marketing Research management from Panjab University in 2013.
+          </p>
         </div>
       </div>
 

@@ -7,8 +7,10 @@ import { EXCHANGE_URLS_EMPLOYEE } from "../../URLS";
 import axios from "axios";
 import cogoToast from "cogo-toast";
 import { IoBackspace } from "react-icons/io5";
+import { useNavigate } from "react-router-dom";
 
 export default function AddNewPosition() {
+  const navigate = useNavigate();
   const schema = yup.object().shape({
     title: yup.string().required("Fill title"),
     employment_type: yup
