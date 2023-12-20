@@ -74,32 +74,48 @@ export default function Dashboard() {
         <div className="Parent2_child1">
           <h3>
             Ability to Deliver Score
-            <IoInformationCircleOutline /> <p>7/10</p>
+            <IoInformationCircleOutline />
           </h3>
+          <p>
+            7 <span>/10</span>
+          </p>
         </div>
         <div className="Parent2_child2">
           <div className="card">
             <h6>Reviews</h6>
             <span>5/20</span>
+            <button>
+              Add Review <IoIosArrowForward />
+            </button>
           </div>
           <div className="card">
             <h6>Clients & Experience</h6>
             <span>2/20</span>
+            <button>
+              Add Clients & Experience <IoIosArrowForward />
+            </button>
           </div>
           <div className="card">
             <h6>Market Presence</h6>
             <span>0/10</span>
+            <button>
+              Add Market Presence <IoIosArrowForward />
+            </button>
           </div>
         </div>
         <div className="Parent2_child3">
-          <h2>
-            Reviews
-            <IoInformationCircleOutline />
-          </h2>
-          <p>
-            1 reviews .... 0 in progress ... 5.0
-            <IoStarOutline />
-          </p>
+          <div className="Parent2_miniii">
+            <h3>
+              Reviews
+              <IoInformationCircleOutline />
+            </h3>
+            <p>1 reviews </p> <p> 0 in progress </p>{" "}
+            <p>
+              {" "}
+              5.0
+              <IoStarOutline />
+            </p>
+          </div>
           <div className="Parent2_mini">
             <select placeholder="AI">
               <option>1</option>
@@ -111,14 +127,16 @@ export default function Dashboard() {
         </div>
       </div>
       <div className="parent3">
-        <h1>Market your brand using exclusive ReviewMe badges</h1>
-        <p>Download, share or embed your available badges</p>
-        <span>
-          <SiOpenbadges />
-        </span>
-        <button>
-          View Badges <IoIosArrowForward />
-        </button>
+        <div className="parent3_child">
+          <h3>Market your brand using exclusive ReviewMe badges</h3>
+          <p>Download, share or embed your available badges</p>
+          <span>
+            <SiOpenbadges /> <SiOpenbadges /> 
+          </span>
+          <button>
+            View Badges <IoIosArrowForward />
+          </button>
+        </div>
       </div>
     </Root>
   );
@@ -133,15 +151,15 @@ const Root = styled.section`
     .child1 {
       text-align: center;
       padding: 10px;
-      @media (max-width: 877px) {
+      @media (max-width: 897px) {
         padding: 5px;
       }
       img {
         width: 170px;
         @media (max-width: 877px) {
-        min-width: 80px;
-        width: 100%;
-      }
+          min-width: 80px;
+          width: 100%;
+        }
       }
       .mini_child1 {
         display: flex;
@@ -157,11 +175,12 @@ const Root = styled.section`
           font-weight: 600;
           font-size: 12px;
           padding: 4px;
+          text-align: center;
           border-radius: 5px;
           @media (max-width: 877px) {
-          font-size: 10px;
-          font-weight: 400;
-        }
+            font-size: 10px;
+            font-weight: 400;
+          }
         }
         button {
           border: none;
@@ -169,6 +188,7 @@ const Root = styled.section`
           font-size: 12px;
           border-radius: 5px;
           font-weight: 600;
+          text-align: center;
           background-color: dodgerblue;
           color: white;
           display: flex;
@@ -178,9 +198,9 @@ const Root = styled.section`
             height: 20px;
           }
           @media (max-width: 877px) {
-          font-size: 10px;
-          font-weight: 400;
-        }
+            font-size: 10px;
+            font-weight: 400;
+          }
         }
       }
     }
@@ -195,61 +215,198 @@ const Root = styled.section`
         }
       }
     }
-    .child3{
+    .child3 {
       padding: 4px;
-      h5{
+      h5 {
         color: black;
         padding: 5px;
         display: flex;
         align-items: center;
-        svg{
+        svg {
           min-width: 20px;
           min-height: 20px;
-
         }
       }
-      p{
+      p {
         font-size: 14px;
         display: flex;
         align-items: center;
         padding: 5px;
-        svg{
+        svg {
           min-width: 20px;
           min-height: 20px;
           padding: 2px;
           color: dodgerblue;
         }
         @media (max-width: 897px) {
-         font-size: 10px;
+          font-size: 10px;
         }
       }
     }
   }
   .parent2 {
-    width: 50%;
+    width: 52%;
     border-left: 0.1px solid lightgray;
     border-right: 0.1px solid lightgray;
     padding: 10px;
     display: flex;
     flex-direction: column;
-    .Parent2_child1{
-      h3{
+    .Parent2_child1 {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      h3 {
+        display: flex;
+        align-items: center;
+        svg {
+          color: dodgerblue;
+          padding: 3px;
+          min-width: 20px;
+          min-height: 20px;
+        }
+      }
+      p {
+        color: #0057ffe0;
+        text-align: center;
+        font-size: 22px;
+        font-weight: 600;
+        span {
+          color: gray;
+          font-size: 14px;
+        }
+      }
+    }
+    .Parent2_child2 {
+      display: flex;
+      gap: 15px;
+      flex-wrap: wrap;
+      .card {
+        flex: 1;
+        display: flex;
+        justify-content: space-between;
+        flex-direction: column;
+        border-radius: 5px;
+        gap: 10px;
+        padding: 10px 20px;
+        text-align: center;
+        border: double thick dodgerblue;
+        border-width: 6px 1px 1px 1px;
+        span {
+          margin: 5px;
+        }
+        button {
+          border: 1px solid dodgerblue;
+          border-radius: 5px;
+          background: transparent;
+          font-size: 10px;
+          padding: 4px;
+          align-items: center;
+          display: flex;
+          justify-content: space-between;
+          svg {
+            color: dodgerblue;
+            min-width: 15px;
+            min-height: 15px;
+          }
+        }
+      }
+    }
+    .Parent2_child3 {
+      display: flex;
+      flex-direction: column;
+      .Parent2_miniii {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        svg{
-          color: dodgerblue;
+        h3 {
+          display: flex;
+          svg {
+            color: dodgerblue;
+            padding: 3px;
+            min-width: 20px;
+            min-height: 20px;
+          }
         }
-        p{
-          color: #0057ffe0;
+        p {
+          display: flex;
+          gap: 10px;
+          color: black;
+          font: 14px;
+          svg {
+            color: red;
+          }
+        }
+      }
+      .Parent2_mini {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        background: #d3d3d39e;
+        padding: 10px;
+        border-radius: 4px;
+        justify-content: space-around;
+        select {
+          width: 50%;
+          padding: 7px;
+          border-radius: 4px;
+          margin: 5px;
+          color: dodgerblue;
+          border-color: dodgerblue;
+          cursor: pointer;
+        }
+        select:focus {
+          color: red;
+          border-color: red;
         }
       }
     }
   }
   .parent3 {
-    width: 23%;
+    width: 25%;
     padding: 10px;
     display: flex;
+    align-items: center;
     flex-direction: column;
+    .parent3_child {
+      display: flex;
+      flex-direction: column;
+      margin: 10px;
+      padding: 10px;
+      border: 2px solid #1e90ff91;
+      border-radius: 10px;
+      box-shadow: 1px 1px 2px 2px lightblue;
+      h3 {
+        font-weight: 300;
+      }
+      p {
+        font-size: 12px;
+        padding: 10px;
+      }
+      span {
+        align-items: center;
+        display: flex;
+        justify-content: center;
+        padding: 10px;
+        svg {
+          width: 50px;
+          height: 50px;
+          color: #086abf;
+        }
+      }
+      button {
+        border: 1px solid dodgerblue;
+        border-radius: 5px;
+        background: transparent;
+        font-size: 10px;
+        padding: 4px;
+        align-items: center;
+        display: flex;
+        justify-content: space-between;
+        svg {
+          width: 15px;
+          height: 15px;
+        }
+      }
+    }
   }
 `;

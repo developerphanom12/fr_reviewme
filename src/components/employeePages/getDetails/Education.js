@@ -8,7 +8,7 @@ export default function Education({ detail }) {
       <ul>
         <li>
           <div className="exp">
-            <h4>Degrese</h4>
+            <h4>Degree</h4>
             <p>{detail?.education?.degree}</p>
           </div>
         </li>
