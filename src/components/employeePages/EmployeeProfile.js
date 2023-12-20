@@ -1,13 +1,43 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import backimg from "../../components/images/bannerbackground.jpg";
 import "./EmployeeProfile.scss";
 import background from "../../components/images/profileeee.avif";
 import { IoCameraOutline } from "react-icons/io5";
 import { CiEdit } from "react-icons/ci";
 import { useNavigate } from "react-router-dom";
+import { FiSend } from "react-icons/fi";
+import Experience from "./getDetails/Experience";
+import axios from "axios";
+import { EXCHANGE_URLS_EMPLOYEE } from "../URLS";
+import Education from "./getDetails/Education";
 
 export default function EmployeeProfile() {
   const navigate = useNavigate();
+  const [exp, setExp] = useState({});
+
+  const ExperienceApi = async () => {
+    const axiosConfig = {
+      headers: {
+        authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    };
+    try {
+      const res = await axios.get(
+        `${EXCHANGE_URLS_EMPLOYEE}/getdetailprofile/`,
+        axiosConfig
+      );
+      if (res?.status === 201) {
+        setExp(res?.data?.data[0]);
+        console.log("res", res);
+      }
+    } catch (err) {
+      console.log("err", err);
+    }
+  };
+
+  useEffect(() => {
+    ExperienceApi();
+  }, []);
   return (
     <div className="root_div">
       <div className="first_main_div">
@@ -43,15 +73,22 @@ export default function EmployeeProfile() {
           </div>
           <div className="bio_2">
             <div className="bio_name">
-              <h2>Srishti Garg</h2>
+             <div className="title">
+             <h2>
+                {exp?.first_name} {exp?.last_name} 
+              </h2><p>({exp?.gender})</p>
+             </div>
+                <p>{exp.email}</p> <p>{exp.phone_number}</p>
             </div>
             <div className="connection">
-              {" "}
-              Founder & CEO at Phanom Professionals{" "}
+              <h4>{exp?.company?.description}</h4>
             </div>
             <div className="items">
               {" "}
-              <button>Follow</button> <button>Message</button>{" "}
+              <button> + Follow</button>{" "}
+              <button className="msg">
+                <FiSend /> Message
+              </button>{" "}
               <button>More</button>
             </div>
           </div>
@@ -59,8 +96,21 @@ export default function EmployeeProfile() {
         <div className="about">
           <h1>About</h1>
           <p>
-          Marketing & Branding Professional with 7 years of expertise establishing brands, driving growth, and generating income. Offer exceptional value by combining senior-level experience with extensive knowledge of technology product development, designing and digital marketing, as well as a master's degree in Marketing Research management from Panjab University in 2013.
+            Marketing & Branding Professional with 7 years of expertise
+            establishing brands, driving growth, and generating income. Offer
+            exceptional value by combining senior-level experience with
+            extensive knowledge of technology product development, designing and
+            digital marketing, as well as a master's degree in Marketing
+            Research management from Panjab University in 2013.
           </p>
+        </div>
+        <div className="about">
+          <Experience
+           detail={exp} 
+          />
+        </div>
+        <div className="about">
+          <Education  detail={exp} />
         </div>
       </div>
 

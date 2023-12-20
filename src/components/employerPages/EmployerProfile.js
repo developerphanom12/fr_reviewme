@@ -10,21 +10,21 @@ export default function EmployerProfile() {
   const navigate = useNavigate();
 
   return (
-     <div className="root_div">
-      <div className="main1">
-        <div className="profile">
-          <div className="bg_img">
+     <div className="root_div1">
+      <div className="main11">
+        <div className="profile1">
+          <div className="bg_img1">
             <img src={backimg} alt="img" />
 
             <IoCameraOutline />
           </div>
-          <div className="imgg">
+          <div className="imgg1">
             <img src={background} alt="img" />{" "}
           </div>
-          <div className="bio">
-            <div className="bio_btn_div">
+          <div className="bio1">
+            <div className="bio_btn_div1">
               <button
-                className="bio_button"
+                className="bio_button1"
                 onClick={() => {
                   navigate("/employerview");
                 }}
@@ -41,13 +41,13 @@ export default function EmployerProfile() {
             </div>
           </div>
         </div>
-        <div className="bio_2">
-          <div className="bio_name"><h2>Swati Thakur</h2></div>
-          <div className="connection"> connection </div>
-          <div className="items"> my items </div>
+        <div className="bio_21">
+          <div className="bio_name1"><h2>Swati Thakur</h2></div>
+          <div className="connection1"> connection </div>
+          <div className="items1"> my items </div>
         </div>
       </div>
-      <div className="main2">suggestions</div>
+      <div className="main21">suggestions</div>
     </div>
      
   );

@@ -39,9 +39,10 @@ export default function Employerlogin() {
       console.log("resres", res?.data?.data);
       if (res?.status === 201) {
         localStorage.setItem("token", res?.data?.data?.token);
-        dispatch(userDataAction(res?.data?.data?.user));
+        console.log("tokkkeennn",res?.data?.data?.token)
+        dispatch(userDataAction(res?.data?.data));
         dispatch(userCheckAction(true));
-        navigate("/employerprofile");
+        navigate("/dashboard");
         cogoToast.success("Login Successfully");
       }
     } catch (err) {

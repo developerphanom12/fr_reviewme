@@ -8,7 +8,7 @@ import EmployerProfile from "./components/employerPages/EmployerProfile";
 import Home from "./components/topNavPages/Home";
 import MyNetwork from "./components/topNavPages/MyNetwork";
 import Jobs from "./components/topNavPages/Jobs";
-import  Message  from "./components/topNavPages/Message";
+import Message from "./components/topNavPages/Message";
 import Notification from "./components/topNavPages/Notification";
 import ForBusiness from "./components/topNavPages/ForBusiness";
 import EditIntro from "./components/employeePages/postDetails/EditIntro";
@@ -19,13 +19,13 @@ import EmployLogin from "./components/CommonPages/loginpages/EmployLogin";
 import Employerlogin from "./components/CommonPages/loginpages/Employerlogin";
 import EmployeeSign from "./components/CommonPages/signupPages/EmployeeSign";
 import EmployerSign from "./components/CommonPages/signupPages/EmployerSign";
+import DashCallAllPage from "./components/employerPages/DashboardAllPage/DashCallAllPage";
 
-// {"users":"{\"user\":{\"id\":2,\"email\":\"avineetsingh782@gmail.com\",\"role\":\"employ\",\"token\":\"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJhdmluZWV0c2luZ2g3ODJAZ21haWwuY29tIiwicm9sZSI6ImVtcGxveSIsImlhdCI6MTcwMjk3NTY0MX0.ZtSWRX5Oi5CwuhmrUBUFijNBUVWn7kHayIrrJoJ_ygY\"},\"userCheck\":true,\"role\":\"\"}","_persist":"{\"version\":-1,\"rehydrated\":true}"}
 function App() {
   const userCheck = useSelector((state) => state?.users?.userCheck);
   const userDetails = useSelector((state) => state?.users?.user);
   const token = localStorage.getItem("token");
-  console.log("role",  userDetails?.role)
+  console.log("role", userDetails?.role);
   return (
     <Layout>
       <Routes>
@@ -37,6 +37,7 @@ function App() {
             <Route path="message" element={<Message />} />
             <Route path="notification" element={<Notification />} />
             <Route path="forbusiness" element={<ForBusiness />} />
+            <Route path="*" element={<PageNF />} />
 
             {userDetails?.role === "employ" ? (
               <>
@@ -45,11 +46,13 @@ function App() {
                 <Route path="/editintro" element={<EditIntro />} />
                 <Route path="/addnewpositon" element={<AddNewPosition />} />
                 <Route path="/addeducation" element={<AddEducation />} />
+                <Route path="*" element={<PageNF />} />
               </>
             ) : userDetails?.role === "employer" ? (
               <>
                 <Route path="/employerprofile" element={<EmployerProfile />} />
-             
+                <Route path="/dashboard" element={<DashCallAllPage />} />
+                <Route path="*" element={<PageNF />} />
               </>
             ) : (
               ""
@@ -66,9 +69,6 @@ function App() {
             <Route path="/allpages" element={<AllPages />} />
           </>
         )}
-
-
-        
       </Routes>
     </Layout>
   );
