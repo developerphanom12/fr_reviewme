@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import ApexChart from "./Charts/ApexChart";
 import { IoSearch } from "react-icons/io5";
+import Percentage from "./Charts/Percentage";
 
 // function valuetext(value) {
 //   return `${value}°C`;
@@ -79,7 +80,7 @@ export default function ServiceLines() {
 
         <div className="chart">
           <ApexChart />
-          <input className="slider" type="range" min="0" max="100" step="5" />
+          <Percentage />
         </div>
       </div>
     </Root>
@@ -152,8 +153,6 @@ const Root = styled.section`
         }
         select:focus {
           color: blue;
-           
-          
         }
       }
     }
@@ -166,9 +165,9 @@ const Root = styled.section`
     }
     .chart {
       width: 50%;
-    text-align: right;
+      text-align: right;
 
-      input{
+      input {
         padding: 10px;
       }
     }

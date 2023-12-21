@@ -20,6 +20,7 @@ import Employerlogin from "./components/CommonPages/loginpages/Employerlogin";
 import EmployeeSign from "./components/CommonPages/signupPages/EmployeeSign";
 import EmployerSign from "./components/CommonPages/signupPages/EmployerSign";
 import DashCallAllPage from "./components/employerPages/DashboardAllPage/DashCallAllPage";
+import PortfolioAdd from "./components/employerPages/DashboardAllPage/PortfolioAdd";
 
 function App() {
   const userCheck = useSelector((state) => state?.users?.userCheck);
@@ -52,6 +53,7 @@ function App() {
               <>
                 <Route path="/employerprofile" element={<EmployerProfile />} />
                 <Route path="/dashboard" element={<DashCallAllPage />} />
+                <Route path="/portfolioadd" element={<PortfolioAdd />} />
                 <Route path="*" element={<PageNF />} />
               </>
             ) : (
