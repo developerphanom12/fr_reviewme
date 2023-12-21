@@ -2,12 +2,10 @@ import React from "react";
 import styled from "styled-components";
 import ApexChart from "./Charts/ApexChart";
 import { IoSearch } from "react-icons/io5";
-import ApexChart2 from "./Charts/ApexChart2";
-import { Box, Slider } from "@mui/material";
 
-function valuetext(value) {
-  return `${value}°C`;
-}
+// function valuetext(value) {
+//   return `${value}°C`;
+// }
 
 export default function ServiceLines() {
   return (
@@ -31,57 +29,57 @@ export default function ServiceLines() {
             <button>button1</button>
             <button>button1</button>
             <button>button145345</button>
+            <button>button145345</button>
+            <button>button145345</button>
+            <button>button145345</button>
             <button>button1</button>
             <button>button1</button>
+          </div>
+        </div>
+        <div className="parent1_child3">
+          <h3>
+            All Available ServiceLines
+            <p>
+              Below is a full lists of all the Service Lines available on
+              ReviewMe
+            </p>
+          </h3>
+
+          <div className="parent1_child3_mini">
+            <select placeholder="select">
+              <option>23</option>
+              <option>34</option>
+              <option>342</option>
+            </select>
+            <select>
+              <option>324</option>
+              <option>342</option>
+              <option>143</option>
+            </select>
+            <select>
+              <option>1234</option>
+              <option>2134</option>
+              <option>4355</option>
+            </select>
+            <select>
+              <option>4352</option>
+              <option>23523</option>
+              <option>2345</option>
+            </select>
+            <select>
+              <option>234523</option>
+              <option>235</option>
+              <option>23452</option>
+            </select>
           </div>
         </div>
       </div>
       <div className="parent2">
         <h3>Selected Industries</h3>
+
         <div className="chart">
           <ApexChart />
-        </div>
-      </div>
-      <div className="parent3">
-        <h3>Update Client Sizes</h3>
-        <div className="parent3_child">
-          <div className="parent3_child_mini">
-            <ApexChart2 />
-          </div>
-          <div className="parent3_child_mini">
-            <div className="slidecontainer">
-              <input
-                type="range"
-                min="1"
-                max="100"
-                class="slider"
-                id="myRange"
-              />
-            </div>
-            <input className="slider" type="range" min="0" max="100" step="5" />
-            <input className="slider" type="range" min="0" max="100" step="5" />
-            <input className="slider" type="range" min="0" max="100" step="5" />
-            {/* <Box sx={{ width: 300 }}>
-              <Slider
-                aria-label="Temperature"
-                defaultValue={30}
-                getAriaValueText={valuetext}
-                valueLabelDisplay="auto"
-                step={10}
-                marks
-                min={10}
-                max={110}
-              />
-              <Slider
-                defaultValue={30}
-                step={10}
-                marks
-                min={10}
-                max={110}
-                disabled
-              />
-            </Box> */}
-          </div>
+          <input className="slider" type="range" min="0" max="100" step="5" />
         </div>
       </div>
     </Root>
@@ -134,31 +132,44 @@ const Root = styled.section`
         }
       }
     }
+    .parent1_child3 {
+      border-top: 0.1px solid lightgray;
+      h3 {
+        font-weight: 500;
+        p {
+          color: gray;
+        }
+      }
+      .parent1_child3_mini {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        select {
+          padding: 4px;
+          border: 0.1px solid lightblue;
+          background: transparent;
+          color: dodgerblue;
+        }
+        select:focus {
+          color: blue;
+           
+          
+        }
+      }
+    }
   }
   .parent2 {
     width: 50%;
+
     h3 {
       font-weight: 500;
     }
     .chart {
       width: 50%;
-      height: 50%;
-    }
-  }
-  .parent3 {
-    width: 100%;
-    padding: 10px;
-    .parent3_child {
-      display: flex;
-      justify-content: space-around;
-      gap: 10px;
-      .parent3_child_mini {
+    text-align: right;
+
+      input{
         padding: 10px;
-        display: flex;
-        flex-direction: column;
-        input {
-          padding: 10px;
-        }
       }
     }
   }

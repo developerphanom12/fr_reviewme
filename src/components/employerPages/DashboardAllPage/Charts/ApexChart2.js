@@ -15,6 +15,11 @@ class ApexChart2 extends React.Component {
           type: 'pie',
         },
         labels: ['client A', 'client B', 'client C', 'client D', 'client E'],
+        theme: {
+          monochrome: {
+            enabled: true,
+          },
+        },
         responsive: [
           {
             breakpoint: 400,

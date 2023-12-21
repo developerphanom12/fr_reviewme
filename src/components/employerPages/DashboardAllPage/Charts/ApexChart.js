@@ -1,7 +1,7 @@
 // ApexChart.js
 
-import React from 'react';
-import ReactApexChart from 'react-apexcharts';
+import React from "react";
+import ReactApexChart from "react-apexcharts";
 
 class ApexChart extends React.Component {
   constructor(props) {
@@ -12,9 +12,22 @@ class ApexChart extends React.Component {
       options: {
         chart: {
           width: 300,
-          type: 'pie',
+          type: "pie",
         },
-        labels: ['industry A', 'industry B', 'industry C', 'industry D', 'industry E'],
+        labels: [
+          "industry A",
+          "industry B",
+          "industry C",
+          "industry D",
+        ],
+        markers: {
+          colors: ["#F44336", "#E91E63", "#9C27B0"],
+        },
+        theme: {
+          monochrome: {
+            enabled: true,
+          },
+        },
         responsive: [
           {
             breakpoint: 400,
@@ -23,7 +36,7 @@ class ApexChart extends React.Component {
                 width: 150,
               },
               legend: {
-                position: 'bottom',
+                position: "bottom",
               },
             },
           },
@@ -35,7 +48,12 @@ class ApexChart extends React.Component {
   render() {
     return (
       <div id="chart">
-        <ReactApexChart options={this.state.options} series={this.state.series} type="pie" width={380} />
+        <ReactApexChart
+          options={this.state.options}
+          series={this.state.series}
+          type="pie"
+          width={380}
+        />
       </div>
     );
   }
