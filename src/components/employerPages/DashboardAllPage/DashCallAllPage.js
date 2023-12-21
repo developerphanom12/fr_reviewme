@@ -5,7 +5,7 @@ import ServiceLines from "./ServiceLines";
 import Specialization from "./Specialization";
 import Portfolio from "./Portfolio";
 import IndustryRecognitions from "./IndustryRecognitions";
-import Edit from "./Edit";
+import Edit from "./EditPages/Edit";
 
 export default function DashCallAllPage() {
   const [active, setActive] = useState("Dashboard");
