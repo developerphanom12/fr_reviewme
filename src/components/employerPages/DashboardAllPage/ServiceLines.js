@@ -90,8 +90,18 @@ const Root = styled.section`
   display: flex;
   flex-wrap: wrap;
   flex: 1;
+  @media (max-width: 899px) {
+    flex-direction: column;
+    align-items: center;
+    .parent1,
+    .parent2 {
+      width: 80%;
+    }
+  }
   .parent1 {
-    width: 50%;
+    display: flex;
+    flex-wrap: wrap;
+    flex: 1;
     padding: 10px;
     p {
       font-weight: 600;
@@ -158,15 +168,20 @@ const Root = styled.section`
     }
   }
   .parent2 {
-    width: 50%;
-
+    padding: 10px;
+    display: flex;
+    flex: 1;
+    align-items: center;
+    flex-direction: column;
+    flex-wrap: wrap;
     h3 {
       font-weight: 500;
     }
     .chart {
-      width: 50%;
       text-align: right;
-
+      @media (max-width: 889px) {
+        width: 50%;
+      }
       input {
         padding: 10px;
       }

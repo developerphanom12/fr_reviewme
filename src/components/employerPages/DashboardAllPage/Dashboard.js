@@ -131,7 +131,7 @@ export default function Dashboard() {
           <h3>Market your brand using exclusive ReviewMe badges</h3>
           <p>Download, share or embed your available badges</p>
           <span>
-            <SiOpenbadges /> <SiOpenbadges /> 
+            <SiOpenbadges /> <SiOpenbadges />
           </span>
           <button>
             View Badges <IoIosArrowForward />
@@ -143,11 +143,15 @@ export default function Dashboard() {
 }
 const Root = styled.section`
   display: flex;
+  flex-wrap: wrap;
   .parent1 {
     width: 23%;
     display: flex;
     flex-direction: column;
     padding: 10px;
+    @media (max-width: 897px) {
+      padding: 0px;
+    }
     .child1 {
       text-align: center;
       padding: 10px;
@@ -200,6 +204,12 @@ const Root = styled.section`
           @media (max-width: 877px) {
             font-size: 10px;
             font-weight: 400;
+            padding: 0px;
+
+            svg {
+              min-width: 15px;
+              min-height: 15px;
+            }
           }
         }
       }
@@ -207,11 +217,15 @@ const Root = styled.section`
     .child2 {
       text-align: center;
       padding: 10px;
+      @media (max-width: 897px) {
+        padding: 0px;
+      }
       img {
         width: 180px;
         @media (max-width: 897px) {
-          min-width: 80px;
+          min-width: 50px;
           width: 100%;
+          padding: 10px;
         }
       }
     }
@@ -225,6 +239,9 @@ const Root = styled.section`
         svg {
           min-width: 20px;
           min-height: 20px;
+        }
+        @media (max-width: 897px) {
+          font-size: 10px;
         }
       }
       p {
@@ -291,6 +308,15 @@ const Root = styled.section`
         text-align: center;
         border: double thick dodgerblue;
         border-width: 6px 1px 1px 1px;
+        @media (max-width: 889px) {
+          padding: 5px 10px;
+          h6 {
+            margin: 5px;
+          }
+          span {
+            margin: 0px;
+          }
+        }
         span {
           margin: 5px;
         }
@@ -316,6 +342,7 @@ const Root = styled.section`
       flex-direction: column;
       .Parent2_miniii {
         display: flex;
+        flex-wrap: wrap;
         align-items: center;
         justify-content: space-between;
         h3 {
@@ -345,6 +372,9 @@ const Root = styled.section`
         padding: 10px;
         border-radius: 4px;
         justify-content: space-around;
+        @media (max-width: 899px) {
+          padding: 3px;
+        }
         select {
           width: 50%;
           padding: 7px;
@@ -353,6 +383,11 @@ const Root = styled.section`
           color: dodgerblue;
           border-color: dodgerblue;
           cursor: pointer;
+          @media (max-width: 899px) {
+            width: 85%;
+            padding: 3px;
+            margin: 2px;
+          }
         }
         select:focus {
           color: red;
@@ -367,30 +402,58 @@ const Root = styled.section`
     display: flex;
     align-items: center;
     flex-direction: column;
+    @media (max-width: 897px) {
+      padding: 5px;
+      margin: 0px;
+    }
     .parent3_child {
       display: flex;
+      flex-wrap: wrap;
       flex-direction: column;
       margin: 10px;
       padding: 10px;
       border: 2px solid #1e90ff91;
       border-radius: 10px;
       box-shadow: 1px 1px 2px 2px lightblue;
+      @media (max-width: 897px) {
+        padding: 0px;
+        margin: 0px;
+      }
       h3 {
         font-weight: 300;
+        @media (max-width: 897px) {
+          padding: 0px;
+          margin: 2px;
+          font-size: 14px;
+        }
       }
       p {
         font-size: 12px;
         padding: 10px;
+        @media (max-width: 897px) {
+          padding: 4px;
+          font-size: 10px;
+        }
       }
       span {
         align-items: center;
         display: flex;
         justify-content: center;
         padding: 10px;
+        @media (max-width: 897px) {
+          padding: 4px;
+          font-size: 10px;
+        }
         svg {
           width: 50px;
           height: 50px;
           color: #086abf;
+          @media (max-width: 897px) {
+            min-width: 30px;
+            width: 100%;
+            height: 100%;
+            min-height: 30px;
+          }
         }
       }
       button {
@@ -405,6 +468,11 @@ const Root = styled.section`
         svg {
           width: 15px;
           height: 15px;
+        }
+        @media (max-width: 897px) {
+          padding: 2px;
+          font-size: 8px;
+          width: 80px;
         }
       }
     }

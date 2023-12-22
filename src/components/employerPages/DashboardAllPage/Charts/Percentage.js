@@ -9,7 +9,7 @@ export default function Percentage() {
     }
   return (
     <div>
-    <Box sx={{ width: 300 }}>
+    <Box sx={{ width: 270 }}>
       <Slider
         aria-label="Percentage"
         defaultValue = {30}

@@ -142,6 +142,8 @@ const Root = styled.section`
     width: 80%;
     @media (max-width: 600px) {
       padding: 0;
+    width: 90%;
+
     }
   }
 `;

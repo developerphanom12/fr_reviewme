@@ -1,13 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { FaGripLines } from "react-icons/fa6";
 import screen from "../../images/computer-screen-mountain-removebg-preview.png";
 import screen2 from "../../images/istockphoto-1025661604-612x612-removebg-preview (1).png";
-import target from "../../images/target-.jpg"  
-import { useNavigate } from "react-router-dom";
+import target from "../../images/target-.jpg";
+import PortfolioAdd from "./PortfolioAdd";
 
 export default function Portfolio() {
-  const navigate = useNavigate();
+  const [showAddPortfolio, setShowAddPortfolio] = useState(false);
+
+  const handleAddPortfolioClick = () => {
+    setShowAddPortfolio(true);
+  };
   return (
     <Root>
       <div className="parent_port_1">
@@ -25,8 +29,12 @@ export default function Portfolio() {
         </div>
         <div>
           <h5>Key Clients</h5>
-          <button>one  <FaGripLines /></button>
-          <button>two  <FaGripLines /></button>
+          <button>
+            one <FaGripLines />
+          </button>
+          <button>
+            two <FaGripLines />
+          </button>
         </div>
       </div>
       <div className="parent_port_2">
@@ -53,13 +61,17 @@ export default function Portfolio() {
             </div>
           </div>
           <div className="parent_port_2_child2_mini2">
-            <h3>Add Portfolio items today!
-            <p>
-              This is replacing current Portfolio and will help you to share
-              This is replacing current Portfolio and will help you to share
-              This is replacing current Portfolio and will help you to share
-            </p></h3>
-            <button onClick={()=>{navigate("/portfolioadd")}}>Add a New Portfolio item</button>
+            <h3>
+              Add Portfolio items today!
+              <p>
+                This is replacing current Portfolio and will help you to share
+                This is replacing current Portfolio and will help you to share
+                This is replacing current Portfolio and will help you to share
+              </p>
+            </h3>
+            <button onClick={handleAddPortfolioClick}>
+              Add a New Portfolio item
+            </button>
             <div className="minii">
               {" "}
               <h6>2. Fill out the client information</h6>
@@ -67,6 +79,9 @@ export default function Portfolio() {
             </div>
           </div>
         </div>
+        {showAddPortfolio && (
+          <PortfolioAdd onCancel={() => setShowAddPortfolio(false)} />
+        )}
       </div>
     </Root>
   );
@@ -86,27 +101,27 @@ const Root = styled.section`
     flex-direction: column;
     gap: 10px;
     justify-content: flex-start;
-  
-    >div{
+
+    > div {
       border-top: 1px solid lightgray;
-      h5{
+      h5 {
         padding: 10px 0px;
         color: #005db7;
       }
     }
-    svg{
+    svg {
       color: red;
     }
     h4 {
       margin: 5px;
     }
-    button{
+    button {
       background-color: transparent;
       width: 100%;
       display: flex;
       justify-content: space-between;
       padding: 10px;
-      border:none;
+      border: none;
       color: #005db7;
       font-weight: 600;
     }
@@ -168,10 +183,10 @@ const Root = styled.section`
         flex: 1;
         padding: 10px;
         gap: 20px;
-        h3{
+        h3 {
           margin: 5px;
         }
-        button{
+        button {
           background: red;
           color: #ffffff;
           font-weight: 600;
