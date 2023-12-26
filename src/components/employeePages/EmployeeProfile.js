@@ -107,7 +107,7 @@ export default function EmployeeProfile() {
         <div className="about">
           <Experience
            detail={exp} 
-          />
+          /> 
         </div>
         <div className="about">
           <Education  detail={exp} />

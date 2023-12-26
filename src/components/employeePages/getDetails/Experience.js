@@ -1,43 +1,42 @@
 import React from "react";
 import styled from "styled-components";
- 
 
 export default function Experience({ detail }) {
   return (
     <Root>
-      <h2>  Experience</h2>
-     <ul>
-      <li>
-      <div className="exp">
-        <h4>Location </h4>
-        <p>
-          {" "}
-          {detail?.company?.location} ({detail?.company?.location_type})
-        </p>
-      </div>
-      </li>
-      <li>
-      <div className="exp">
-        <h4>Experience </h4>
-        <p>{detail?.company?.exprience}</p>
-      </div>
-      </li>
-      <li>
-      <div className="exp">
-        <h4>Started From </h4>
-        <p>
-          {" "}
-          {detail?.company?.start_date} - {detail?.end_date}
-        </p>
-      </div>
-      </li>
-      <li>
-      <div className="exp">
-        <h4>Working </h4>
-        <p> {detail?.company?.employment_type}</p>
-      </div>
-      </li>
-     </ul>
+      <h2> Experience</h2>
+      <ul>
+        <li>
+          <div className="exp">
+            <h4>Location </h4>
+            <p>
+              {" "}
+              {detail?.company?.location} ({detail?.company?.location_type})
+            </p>
+          </div>
+        </li>
+        <li>
+          <div className="exp">
+            <h4>Experience </h4>
+            <p>{detail?.company?.exprience}</p>
+          </div>
+        </li>
+        <li>
+          <div className="exp">
+            <h4>Started From </h4>
+            <p>
+              {" "}
+              {detail?.company?.start_date} - {detail?.end_date}
+            </p>
+          </div>
+        </li>
+        <li>
+          <div className="exp">
+            <h4>Working </h4>
+            <p> {detail?.company?.employment_type}</p>
+          </div>
+        </li>
+      </ul>
     </Root>
   );
 }

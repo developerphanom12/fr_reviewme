@@ -1,10 +1,10 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import profilePic from "../../../images/editprofilepic.jpeg";
 import * as yup from "yup";
 import cogoToast from "cogo-toast";
 import axios from "axios";
-import { EXCHANGE_URLS_EMPLOYER } from "../../../URLS";
+import { EXCHANGE_URLS_EMPLOYEE, EXCHANGE_URLS_EMPLOYER } from "../../../URLS";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 
@@ -19,6 +19,8 @@ const schema = yup.object().shape({
   founded_year: yup.string().required(),
 });
 export default function EditProfile() {
+  const [getData,setGetData] =useState();
+
   const onSubmit = async (data) => {
     const axiosConfig = {
       headers: {
@@ -48,6 +50,30 @@ export default function EditProfile() {
   } = useForm({
     resolver: yupResolver(schema),
   });
+
+  const GetProfileApi = async () => {
+    const axiosConfig = {
+      headers: {
+        authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    };
+    try {
+      const res = await axios.get(
+        `${EXCHANGE_URLS_EMPLOYEE}/getprofiledata`,
+        axiosConfig
+      );
+      if (res?.status === 201) {
+        setEmpView(res?.data?.data[0]);
+        console.log("res", res);
+      }
+    } catch (err) {
+      console.log("err", err);
+    }
+  };
+
+  useEffect (()=>{
+    GetProfileApi()
+  })
 
   return (
     <Root>
@@ -109,7 +135,7 @@ export default function EditProfile() {
             <p>Sales Email</p>
             <input type="text" {...register("sales_email")} />
             {errors.sales_email && <p>{errors.sales_email.message}</p>}
-            <button type="submit">done</button>
+            <button type="submit">Next</button>
           </div>
         </div>
       </form>

@@ -1,14 +1,14 @@
 import React from "react";
 import styled from "styled-components";
 
-export default function EditPoject() {
+export default function EditPoject({detail}) {
   return (
     <Root>
       <div className="project_div">
         <h3>Project Information</h3>
         <div className="project_child_div">
           <p>Minimum Project Size</p>
-          <select>
+          <select  value={detail?.minimum_pojectsize}>
             <option>2000$</option>
             <option>2000$</option>
             <option>2000$</option>
@@ -18,7 +18,7 @@ export default function EditPoject() {
         </div>
         <div className="project_child_div">
           <p>Average Hourly Rate</p>
-          <select>
+          <select value={detail?.average_hourly}>
             <option>50$</option>
             <option>50$</option>
             <option>50$</option>
@@ -28,7 +28,7 @@ export default function EditPoject() {
         </div>
       </div>
       <div className="save_btn">
-        <button>Save Changes</button>
+        <button type="submit">Save Changes</button>
       </div>
     </Root>
   );
