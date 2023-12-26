@@ -15,6 +15,7 @@ export default function EditPoject({detail}) {
             <option>2000$</option>
             <option>2000$</option>
           </select>
+          
         </div>
         <div className="project_child_div">
           <p>Average Hourly Rate</p>
