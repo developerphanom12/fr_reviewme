@@ -38,6 +38,9 @@ export default function Portfolio() {
         </div>
       </div>
       <div className="parent_port_2">
+        {showAddPortfolio && (
+          <PortfolioAdd onCancel={() => setShowAddPortfolio(false)} />
+        )}
         <div className="parent_port_2_child1">
           <h4>Add Portfolio items</h4>
           <h6>Share your latest exciting work.</h6>
@@ -79,9 +82,6 @@ export default function Portfolio() {
             </div>
           </div>
         </div>
-        {showAddPortfolio && (
-          <PortfolioAdd onCancel={() => setShowAddPortfolio(false)} />
-        )}
       </div>
     </Root>
   );

@@ -17,10 +17,6 @@ export default function EditLocation() {
             <option>India</option>
           </select>
         </div>
-        <div className="location1_child1">
-          <p>Phone Number</p>
-          <input />
-        </div>
         <div className="location1_child2">
           <h4>Headquaters</h4>
           <p>Address</p>
@@ -80,11 +76,7 @@ const Root = styled.section`
         width: 100%;
         color: dodgerblue;
       }
-      input {
-        padding: 5px;
-        width: 100%;
-        color: dodgerblue;
-      }
+    
     }
     .location1_child2 {
       padding: 10px;
