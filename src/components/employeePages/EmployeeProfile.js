@@ -8,12 +8,21 @@ import { useNavigate } from "react-router-dom";
 import { FiSend } from "react-icons/fi";
 import Experience from "./getDetails/Experience";
 import axios from "axios";
-import { EXCHANGE_URLS_EMPLOYEE } from "../URLS";
+import { EXCHANGE_URLS_EMPLOYEE, EXCHANGE_URLS_EMPLOYER } from "../URLS";
 import Education from "./getDetails/Education";
+import Rate from "./Rate";
 
 export default function EmployeeProfile() {
   const navigate = useNavigate();
   const [exp, setExp] = useState({});
+  const [rate, setRate] = useState({
+    rating: "",
+    employe_type: "",
+    //  .valid("Youremploye", "Freelancer", "Influencer")
+    performance: "",
+    //  .valid("Bad", "Good", "Average", "Excellent", "Blacklisted")
+    employ_id: "",
+  });
 
   const ExperienceApi = async () => {
     const axiosConfig = {
@@ -27,8 +36,20 @@ export default function EmployeeProfile() {
         axiosConfig
       );
       if (res?.status === 201) {
-        setExp(res?.data?.data[0]);
+        setExp(res?.data?.data);
         console.log("res", res);
+      }
+    } catch (err) {
+      console.log("err", err);
+    }
+  };
+
+  const ReviewPostApi = async () => {
+    try {
+      const res = await axios.post(`${EXCHANGE_URLS_EMPLOYER}/addComment`);
+      console.log("resres", res?.data?.data);
+      if (res?.status === 201) {
+        navigate("/dashboard");
       }
     } catch (err) {
       console.log("err", err);
@@ -38,6 +59,11 @@ export default function EmployeeProfile() {
   useEffect(() => {
     ExperienceApi();
   }, []);
+
+  const handleClick = () => {
+    ReviewPostApi();
+  };
+
   return (
     <div className="root_div">
       <div className="first_main_div">
@@ -73,12 +99,13 @@ export default function EmployeeProfile() {
           </div>
           <div className="bio_2">
             <div className="bio_name">
-             <div className="title">
-             <h2>
-                {exp?.first_name} {exp?.last_name} 
-              </h2><p>({exp?.gender})</p>
-             </div>
-                <p>{exp.email}</p> <p>{exp.phone_number}</p>
+              <div className="title">
+                <h2>
+                  {exp?.first_name} {exp?.last_name}
+                </h2>
+                <p>({exp?.gender})</p>
+              </div>
+              <p>{exp.email}</p> <p>{exp.phone_number}</p>
             </div>
             <div className="connection">
               <h4>{exp?.company?.description}</h4>
@@ -104,13 +131,19 @@ export default function EmployeeProfile() {
             Research management from Panjab University in 2013.
           </p>
         </div>
-        <div className="about">
-          <Experience
-           detail={exp} 
-          /> 
+        <div className="rate">
+          {" "}
+          <input placeholder="write a review" value={rate?.rating} />{" "}
+          <div id="root" onClick={()=>{navigate("/ratingpage")}}>
+            {" "}
+            <Rate />
+          </div>
         </div>
         <div className="about">
-          <Education  detail={exp} />
+          <Experience detail={exp} />
+        </div>
+        <div className="about">
+          <Education detail={exp} />
         </div>
       </div>
 

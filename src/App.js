@@ -21,10 +21,11 @@ import EmployeeSign from "./components/CommonPages/signupPages/EmployeeSign";
 import EmployerSign from "./components/CommonPages/signupPages/EmployerSign";
 import DashCallAllPage from "./components/employerPages/DashboardAllPage/DashCallAllPage";
 import PortfolioAdd from "./components/employerPages/DashboardAllPage/PortfolioAdd";
+import RatingPage from "./components/employeePages/RatingPage";
 
 function App() {
   const userCheck = useSelector((state) => state?.users?.userCheck);
-  const userDetails = useSelector((state) => state?.users?.user);
+  const userDetails = useSelector((state) => state?.users?.user?.user);
   const token = localStorage.getItem("token");
   console.log("role", userDetails?.role);
   return (
@@ -47,6 +48,7 @@ function App() {
                 <Route path="/editintro" element={<EditIntro />} />
                 <Route path="/addnewpositon" element={<AddNewPosition />} />
                 <Route path="/addeducation" element={<AddEducation />} />
+                <Route path="/ratingpage" element={<RatingPage />} />
                 <Route path="*" element={<PageNF />} />
               </>
             ) : userDetails?.role === "employer" ? (

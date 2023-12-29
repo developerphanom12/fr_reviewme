@@ -38,7 +38,8 @@ export default function EmployLogin() {
       const res = await axios.post(`${EXCHANGE_URLS_EMPLOYEE}/login`, data);
       console.log("resres", res?.data?.data);
       if (res?.status === 201) {
-        localStorage.setItem("token", res?.data?.data?.token);
+        localStorage.setItem("token", res?.data?.data?.user?.token);
+        console.log("tokeennn", res?.data?.data?.user?.token)
         dispatch(userDataAction(res?.data?.data));
         dispatch(userCheckAction(true));
         navigate("/employeeprofile");
